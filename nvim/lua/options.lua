@@ -5,6 +5,8 @@
 -- Set highlight on search
 vim.o.hlsearch = false
 
+vim.opt.expandtab = true
+
 -- Make line numbers default
 vim.wo.number = true
 vim.wo.relativenumber = true
