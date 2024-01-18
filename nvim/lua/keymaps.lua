@@ -20,7 +20,7 @@ vim.keymap.set("n", "n", "nzzzv", {desc = "Search next, center, and select line"
 vim.keymap.set("n", "N", "Nzzzv", {desc = "Reverse search next, center, and select line"})
 
 vim.keymap.set("x", "<leader>p", [["_dP]], {desc = "Paste without overriding buffer"})
-
+vim.keymap.set("n","<leader>df","<Cmd>Format<CR>", {desc = "Format"})
 -- tmux keymaps
 vim.keymap.set("n", "<C-h>", "<Cmd>NvimTmuxNavigateLeft<CR>", { silent = true })
 vim.keymap.set("n", "<C-j>", "<Cmd>NvimTmuxNavigateDown<CR>", { silent = true })
