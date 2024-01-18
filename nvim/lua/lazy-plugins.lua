@@ -13,7 +13,7 @@ require('lazy').setup({
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
-
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
   {
@@ -32,10 +32,10 @@ require('lazy').setup({
       'folke/neodev.nvim',
     },
   },
-{
-  'stevearc/dressing.nvim',
-  opts = {},
-},
+  {
+    'stevearc/dressing.nvim',
+    opts = {},
+  },
 
   {
     -- Autocompletion
@@ -94,22 +94,22 @@ require('lazy').setup({
     },
   },
   {
-  "alexghergh/nvim-tmux-navigation",
-  event = "VeryLazy",
-  config = function()
-    local nvim_tmux_nav = require("nvim-tmux-navigation")
-    nvim_tmux_nav.setup({
-      disable_when_zoomed = true,
-      -- defaults to false
-      keybindings = {
-        left = "<C-h>",
-        down = "<C-j>",
-        up = "<C-k>",
-        right = "<C-l>",
-        last_active = "<C-\\>",
-        next = "<C-Space>",
-      },
-    })
+    "alexghergh/nvim-tmux-navigation",
+    event = "VeryLazy",
+    config = function()
+      local nvim_tmux_nav = require("nvim-tmux-navigation")
+      nvim_tmux_nav.setup({
+        disable_when_zoomed = true,
+        -- defaults to false
+        keybindings = {
+          left = "<C-h>",
+          down = "<C-j>",
+          up = "<C-k>",
+          right = "<C-l>",
+          last_active = "<C-\\>",
+          next = "<C-Space>",
+        },
+      })
     end,
   },
   {
@@ -192,22 +192,22 @@ require('lazy').setup({
         -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
       }
   },
--- {'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons'},
---   {
---     "rcarriga/nvim-notify",
--- opts = {
---   timeout = 3000,
---   max_height = function()
---     return math.floor(vim.o.lines * 0.75)
---   end,
---   max_width = function()
---     return math.floor(vim.o.columns * 0.75)
---   end,
---   on_open = function(win)
---     vim.api.nvim_win_set_config(win, { zindex = 100 })
---   end,
--- }
---  },
+  -- {'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons'},
+  --   {
+  --     "rcarriga/nvim-notify",
+  -- opts = {
+  --   timeout = 3000,
+  --   max_height = function()
+  --     return math.floor(vim.o.lines * 0.75)
+  --   end,
+  --   max_width = function()
+  --     return math.floor(vim.o.columns * 0.75)
+  --   end,
+  --   on_open = function(win)
+  --     vim.api.nvim_win_set_config(win, { zindex = 100 })
+  --   end,
+  -- }
+  --  },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
