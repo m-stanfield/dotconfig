@@ -7,13 +7,7 @@ local on_attach = function(_, bufnr)
   --
   -- In this case, we create a function that lets us more easily define mappings specific
   -- for LSP related items. It sets the mode, buffer and description for us each time.
-  require "lsp_signature".on_attach({
-    bind = true,   -- This is mandatory, otherwise border config won't get registered.
-    handler_opts = {
-      border = "rounded",
-      doc_lines = 10,
-    }
-  }, bufnr)
+  require "lsp_signature".on_attach(_, bufnr)
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
