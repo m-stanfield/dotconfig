@@ -1,6 +1,6 @@
 alias vim="nvim"
 alias download="wget --directory-prefix=$HOME/Downloads"
-
+alias nvimswap="cd ~/.local/state/nvim/swap"  
 function cd() {
   builtin cd "$@"
   if [[ -z "$VIRTUAL_ENV" ]]; then
