@@ -44,8 +44,10 @@ return {
     }
 
     -- Basic debugging keymaps, feel free to change to your liking!
-    vim.keymap.set('n', '<leaader>cc', dap.continue, { desc = 'Debug: Start/Continue' })
+    vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
+    vim.keymap.set('n', '<leader>cc', dap.continue, { desc = 'Debug: Start/Continue' })
     vim.keymap.set('n', '<leader>ci', dap.step_into, { desc = 'Debug: Step Into' })
+    vim.keymap.set('n', '<leader>co', dap.step_over, { desc = 'Debug: Step Over' })
     vim.keymap.set('n', '<leader>n', dap.step_over, { desc = 'Debug: Step Over' })
     vim.keymap.set('n', '<leader>cO', dap.step_out, { desc = 'Debug: Step Out' })
 
@@ -58,7 +60,7 @@ return {
     dap.adapters.cppdbg = {
       id = "cppdbg",
       type = "executable",
-      command = "/home/matthew/.cpptools/extension/debugAdapters/bin/OpenDebugAD7",
+      command = vim.env.HOME .. "/.cpptools/extension/debugAdapters/bin/OpenDebugAD7",
     }
 
     dap.configurations.cpp = {
