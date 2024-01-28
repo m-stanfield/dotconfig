@@ -1,1 +1,1 @@
-# .config
+# dotconfig
