@@ -75,4 +75,23 @@ curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 chmod u+x nvim.appimage
 sudo mv nvim.appimage /bin/nvim
 
+curl -L https://raw.githubusercontent.com/catppuccin/gnome-terminal/v0.2.0/install.py | python3 -
+
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
+
+unzip JetBrainsMono.zip -d ~/.fonts
+fc-cache -fv
+
+
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+
+wget -qO - https://regolith-desktop.org/regolith.key | \
+gpg --dearmor | sudo tee /usr/share/keyrings/regolith-archive-keyring.gpg > /dev/null
+
+echo deb "[arch=amd64 signed-by=/usr/share/keyrings/regolith-archive-keyring.gpg] \
+https://regolith-desktop.org/release-3_0-ubuntu-jammy-amd64 jammy main" | \
+sudo tee /etc/apt/sources.list.d/regolith.list
+sudo apt install regolith-desktop regolith-session-flashback regolith-look-lascaille
+
 
