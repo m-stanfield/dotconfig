@@ -95,3 +95,4 @@ sudo tee /etc/apt/sources.list.d/regolith.list
 sudo apt install regolith-desktop regolith-session-flashback regolith-look-lascaille
 
 
+sudo apt install stow
