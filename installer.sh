@@ -96,3 +96,5 @@ sudo apt install regolith-desktop regolith-session-flashback regolith-look-lasca
 
 
 sudo apt install stow
+
+sudo apt install xsel
