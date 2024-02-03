@@ -39,9 +39,11 @@ cp -r "${SCRIPT_DIR}"/{bash_aliases,nvim,tmux,.git} "$target_dir"
 read -p "Do you want to source the bash_aliases file in the .bashrc? (y/n) " choice
 case "$choice" in
     y|Y )
-	    echo "if [ -f $target_dir/bash_aliases ]; then" >> ~/.bashrc 
-	    echo ". $target_dir/bash_aliases" >> ~/.bashrc
-	    echo "fi" >> ~/.bashrc;;
+	echo "if [ -f \${XDG_CONFIG_HOME}/bash_aliases ]; then" >> ~/.bashrc
+	echo "    . \${XDG_CONFIG_HOME}/bash_aliases" >> ~/.bashrc
+	echo "elif [ -f \${HOME}/.config/bash_aliases ]; then" >> ~/.bashrc
+	echo "    . \${HOME}/.config/bash_aliases" >> ~/.bashrc
+	echo "fi" >> ~/.bashrc
     n|N ) echo "Okay, bash_aliases file not sourced in .bashrc.";;
     * ) echo "Invalid input. bash_aliases file not sourced in .bashrc.";;
 esac
@@ -100,3 +102,5 @@ sudo apt install stow
 sudo apt install xsel
 
 sudo apt install ripgrep
+sudo apt install python3.10
+sudo apt install python3.10-venv
