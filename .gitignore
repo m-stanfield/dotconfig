@@ -1,4 +1,4 @@
 *.log
 *.exe
 
-.config/tmux/plugins/*
+config/tmux/plugins/*

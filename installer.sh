@@ -8,9 +8,9 @@ else
     target_dir="$XDG_CONFIG_HOME"
 fi
 
-# Check if the .aliases file or nvim or tmux directories exist within the above directory, if so back them up by prepending the bak. string to the name
-if [ -f "$target_dir/.aliases" ]; then
-    mv "$target_dir/.aliases" "$target_dir/bak..aliases"
+# Check if the bash_aliases file or nvim or tmux directories exist within the above directory, if so back them up by prepending the bak. string to the name
+if [ -f "$target_dir/bash_aliases" ]; then
+    mv "$target_dir/bash_aliases" "$target_dir/bak..aliases"
 fi
 
 if [ -d "$target_dir/.git" ]; then
@@ -25,25 +25,25 @@ if [ -d "$target_dir/tmux" ]; then
     mv "$target_dir/tmux" "$target_dir/bak.tmux"
 fi
 
-# Double check that, after moving, the .aliases file and nvim or tmux directories do not exists
-if [ -e "$target_dir/.aliases" ] || [ -d "$target_dir/nvim" ] || [ -d "$target_dir/tmux" ]; then
+# Double check that, after moving, the bash_aliases file and nvim or tmux directories do not exists
+if [ -e "$target_dir/bash_aliases" ] || [ -d "$target_dir/nvim" ] || [ -d "$target_dir/tmux" ]; then
     echo "Error: Backup failed. Please check the target directory."
     exit 1
 fi
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-# copy the .aliases, nvim, and tmux from the scripts directory to the target directory
-cp -r "${SCRIPT_DIR}"/{.aliases,nvim,tmux,.git} "$target_dir"
+# copy the bash_aliases, nvim, and tmux from the scripts directory to the target directory
+cp -r "${SCRIPT_DIR}"/{bash_aliases,nvim,tmux,.git} "$target_dir"
 
-# Ask the user if they want to source the .aliases file in the .bashrc, if they confirm source the .aliases file in the .bashrc file
-read -p "Do you want to source the .aliases file in the .bashrc? (y/n) " choice
+# Ask the user if they want to source the bash_aliases file in the .bashrc, if they confirm source the .aliases file in the .bashrc file
+read -p "Do you want to source the bash_aliases file in the .bashrc? (y/n) " choice
 case "$choice" in
     y|Y )
-	    echo "if [ -f $target_dir/.aliases ]; then" >> ~/.bashrc 
-	    echo ". $target_dir/.aliases" >> ~/.bashrc
+	    echo "if [ -f $target_dir/bash_aliases ]; then" >> ~/.bashrc 
+	    echo ". $target_dir/bash_aliases" >> ~/.bashrc
 	    echo "fi" >> ~/.bashrc;;
-    n|N ) echo "Okay, .aliases file not sourced in .bashrc.";;
-    * ) echo "Invalid input. .aliases file not sourced in .bashrc.";;
+    n|N ) echo "Okay, bash_aliases file not sourced in .bashrc.";;
+    * ) echo "Invalid input. bash_aliases file not sourced in .bashrc.";;
 esac
 
 read -p "Do you want to install required packages? (y/n) " choice
@@ -51,7 +51,7 @@ case "$choice" in
     y|Y ) echo "Installing packages";;
     n|N ) echo "Not installing packages. User will be required to install their own"
 	exit 0;;
-    * ) echo "Invalid input. .aliases file not sourced in .bashrc."
+    * ) echo "Invalid input. bash_aliases file not sourced in .bashrc."
 	exit 1;;
 esac
 
