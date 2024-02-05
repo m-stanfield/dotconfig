@@ -130,7 +130,10 @@ font pango:$wm.font
 workspace "$ws1" output DP-4
 
 bindsym $mod+Shift+u move workspace to output next
-###############################################################################
+
+bindsym Ctrl+$mod+x exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+bindsym Ctrl+Shift+$mod+x exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+
 # WM Config Partials
 ###############################################################################
 
