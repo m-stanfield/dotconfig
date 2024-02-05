@@ -43,7 +43,7 @@ case "$choice" in
 	echo "    . \${XDG_CONFIG_HOME}/bash_aliases" >> ~/.bashrc
 	echo "elif [ -f \${HOME}/.config/bash_aliases ]; then" >> ~/.bashrc
 	echo "    . \${HOME}/.config/bash_aliases" >> ~/.bashrc
-	echo "fi" >> ~/.bashrc
+	echo "fi" >> ~/.bashrc;;
     n|N ) echo "Okay, bash_aliases file not sourced in .bashrc.";;
     * ) echo "Invalid input. bash_aliases file not sourced in .bashrc.";;
 esac

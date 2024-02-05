@@ -8,5 +8,6 @@ else
     target_dir="$XDG_CONFIG_HOME"
 fi
 
+echo "Stowing to target ${target_dir}"
 
 stow -d config -t ${target_dir} .
