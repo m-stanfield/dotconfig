@@ -27,6 +27,7 @@ set_from_resource $alt  wm.alt Mod1
 # Workspace Names
 # These are the labels which define each workspace.
 ###############################################################################
+exec_always --no-startup-id ~/.config/regolith3/i3/scripts/setup_monitors.sh
 
 set_from_resource $ws1  wm.workspace.01.name "1"
 set_from_resource $ws2  wm.workspace.02.name "2"
