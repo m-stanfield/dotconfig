@@ -1,11 +1,15 @@
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
+local teleactions = require("telescope.actions")
 require('telescope').setup {
   defaults = {
     mappings = {
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
+        ["<CR>"] = teleactions.select_default + teleactions.center,
+      },
+      n = {
       },
     },
   },
@@ -43,7 +47,7 @@ local function live_grep_git_root()
   local git_root = find_git_root()
   if git_root then
     require('telescope.builtin').live_grep({
-      search_dirs = {git_root},
+      search_dirs = { git_root },
     })
   end
 end
@@ -55,7 +59,7 @@ local function live_git_root()
   if isgit == "true" then
     return require('telescope.builtin').git_files({})
   else
-    return require('telescope.builtin').find_files({hidden = false})
+    return require('telescope.builtin').find_files({ hidden = false })
   end
 end
 
