@@ -27,7 +27,7 @@ set_from_resource $alt  wm.alt Mod1
 # Workspace Names
 # These are the labels which define each workspace.
 ###############################################################################
-exec_always --no-startup-id ~/.config/regolith3/i3/scripts/setup_monitors.sh
+exec_always --no-startup-id ~/.config/regolith3/i3/scripts/setup_monitor.sh
 
 set_from_resource $ws1  wm.workspace.01.name "1"
 set_from_resource $ws2  wm.workspace.02.name "2"
@@ -48,7 +48,6 @@ set_from_resource $ws16 wm.workspace.16.name "16"
 set_from_resource $ws17 wm.workspace.17.name "17"
 set_from_resource $ws18 wm.workspace.18.name "18"
 set_from_resource $ws19 wm.workspace.19.name "19"
-
 ###############################################################################
 # Workspace Keys
 # These are the keys which will be used while binding workspace switching
@@ -128,7 +127,28 @@ set_from_resource $wm.font gtk.font_name Sans 13
 font pango:$wm.font
 
 
-workspace "$ws1" output DP-4
+workspace "$ws1" output DP-4-2
+workspace "$ws2" output DP-4-2
+workspace "$ws10" output DP-4-2
+workspace "$ws11" output DP-4-2
+workspace "$ws12" output DP-4-2
+
+workspace "$ws3" output HDMI-0
+workspace "$ws4" output HDMI-0
+workspace "$ws9" output HDMI-0
+workspace "$ws13" output HDMI-0
+workspace "$ws14" output HDMI-0
+
+workspace "$ws5" output DP-4-1
+workspace "$ws6" output DP-4-1
+workspace "$ws15" output DP-4-1
+workspace "$ws16" output DP-4-1
+
+workspace "$ws7" output DP-4-3
+workspace "$ws8" output DP-4-3
+workspace "$ws17" output DP-4-3
+workspace "$ws18" output DP-4-3
+
 
 bindsym $mod+Shift+u move workspace to output next
 bindsym $mod+x exec --no-startup-id maim | xclip -selection clipboard -t image/png
