@@ -1,9 +1,5 @@
 #!/bin/sh
 
-
-
-
-
 # Check if an argument is provided
 if [[ $# -ne 1 ]]; then
     echo "Usage: $0 [--enable|--disable]"
@@ -16,6 +12,7 @@ MONITOR_NAME=$(xrandr | grep -E ' connected.*5120x1440' | awk '{print $1}')
 # Check if a monitor was found
 if [ -z "$MONITOR_NAME" ]; then
     echo "No monitor with 5120x1440 resolution found."
+    exit 0
 fi
 
 # Parse the argument
