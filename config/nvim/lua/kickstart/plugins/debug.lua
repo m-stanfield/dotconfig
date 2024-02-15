@@ -13,6 +13,7 @@ return {
   dependencies = {
     -- Creates a beautiful debugger UI
     'rcarriga/nvim-dap-ui',
+    'mfussenegger/nvim-dap-python',
 
     -- Installs the debug adapters for you
     'williamboman/mason.nvim',
@@ -21,6 +22,8 @@ return {
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
   },
+
+
   config = function()
     local dap = require 'dap'
     local dapui = require 'dapui'
@@ -29,6 +32,7 @@ return {
       -- Makes a best effort to setup the various debuggers with
       -- reasonable debug configurations
       automatic_setup = true,
+      automatic_installation = true,
 
       -- You can provide additional configuration to the handlers,
       -- see mason-nvim-dap README for more information
@@ -101,7 +105,37 @@ return {
         end,
       },
     }
+    dap.adapters.python = {
+      type = 'executable',
+      command = os.getenv("VIRTUAL_ENV") .. "/bin/python",
+      args = { '-m', 'debugpy.adapter' },
+    }
 
+
+    dap.configurations.python = {
+      {
+        -- The first three options are required by nvim-dap
+        type = 'python', -- the type here established the link to the adapter definition: `dap.adapters.python`
+        request = 'launch',
+        name = "Launch file",
+        cwd = vim.fn.getcwd(), --python is executed from this directory
+
+        program = "${file}",   -- This configuration will launch the current file if used.
+        pythonPath = function()
+          -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
+          -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
+          -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
+          local cwd = vim.fn.getcwd()
+          if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
+            return cwd .. '/venv/bin/python'
+          elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
+            return cwd .. '/.venv/bin/python'
+          else
+            return '/usr/bin/python'
+          end
+        end,
+      },
+    }
 
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
