@@ -27,7 +27,7 @@ return {
   config = function()
     local dap = require 'dap'
     local dapui = require 'dapui'
-
+    require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
     require('mason-nvim-dap').setup {
       -- Makes a best effort to setup the various debuggers with
       -- reasonable debug configurations
@@ -118,9 +118,9 @@ return {
         type = 'python', -- the type here established the link to the adapter definition: `dap.adapters.python`
         request = 'launch',
         name = "Launch file",
-        cwd = vim.fn.getcwd(), --python is executed from this directory
+        cwd = "${workspaceFolder}", --python is executed from this directory
 
-        program = "${file}",   -- This configuration will launch the current file if used.
+        program = "${file}",        -- This configuration will launch the current file if used.
         pythonPath = function()
           -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
           -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
