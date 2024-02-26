@@ -27,7 +27,7 @@ return {
   config = function()
     local dap = require 'dap'
     local dapui = require 'dapui'
-    require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
+    require('dap-python').setup(vim.env.HOME .. '/.virtualenvs/debugpy/bin/python')
     require('mason-nvim-dap').setup {
       -- Makes a best effort to setup the various debuggers with
       -- reasonable debug configurations
@@ -107,7 +107,7 @@ return {
     }
     dap.adapters.python = {
       type = 'executable',
-      command = os.getenv("VIRTUAL_ENV") .. "/bin/python",
+      command = vim.env.HOME .. '/.virtualenvs/debugpy/bin/python',
       args = { '-m', 'debugpy.adapter' },
     }
 
@@ -119,7 +119,7 @@ return {
         request = 'launch',
         name = "Launch file",
         cwd = "${workspaceFolder}", --python is executed from this directory
-
+        stopAtEntry = true,
         program = "${file}",        -- This configuration will launch the current file if used.
         pythonPath = function()
           -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
@@ -130,6 +130,8 @@ return {
             return cwd .. '/venv/bin/python'
           elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
             return cwd .. '/.venv/bin/python'
+          elseif vim.fn.executable('/usr/bin/python3') == 1 then
+            return '/usr/bin/python3'
           else
             return '/usr/bin/python'
           end
