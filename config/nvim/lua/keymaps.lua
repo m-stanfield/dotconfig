@@ -14,20 +14,13 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open float
 vim.keymap.set('n', '<leader>qq', 'qa', { desc = 'Quit Nvim' })
 
 -- navigation keymaps
-vim.keymap.set("n", "<C-d>", "<C-d>zz", {desc = "Move down half-page and center cursor"})
-vim.keymap.set("n", "<C-u>", "<C-u>zz", {desc = "Move up half-page and center cursor"})
-vim.keymap.set("n", "n", "nzzzv", {desc = "Search next, center, and select line"})
-vim.keymap.set("n", "N", "Nzzzv", {desc = "Reverse search next, center, and select line"})
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Move down half-page and center cursor" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Move up half-page and center cursor" })
+vim.keymap.set("n", "n", "nzzzv", { desc = "Search next, center, and select line" })
+vim.keymap.set("n", "N", "Nzzzv", { desc = "Reverse search next, center, and select line" })
 
-vim.keymap.set("x", "<leader>p", [["_dP]], {desc = "Paste without overriding buffer"})
-vim.keymap.set("n","<leader>df","<Cmd>Format<CR>", {desc = "Format"})
--- tmux keymaps
-vim.keymap.set("n", "<C-h>", "<Cmd>NvimTmuxNavigateLeft<CR>", { silent = true })
-vim.keymap.set("n", "<C-j>", "<Cmd>NvimTmuxNavigateDown<CR>", { silent = true })
-vim.keymap.set("n", "<C-k>", "<Cmd>NvimTmuxNavigateUp<CR>", { silent = true })
-vim.keymap.set("n", "<C-l>", "<Cmd>NvimTmuxNavigateRight<CR>", { silent = true })
-vim.keymap.set("n", "<C-\\>", "<Cmd>NvimTmuxNavigateLastActive<CR>", { silent = true })
-vim.keymap.set("n", "<C-Space>", "<Cmd>NvimTmuxNavigateNavigateNext<CR>", { silent = true })
+vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste without overriding buffer" })
+vim.keymap.set("n", "<leader>df", "<Cmd>Format<CR>", { desc = "Format" })
 
 -- Resize window using <ctrl> arrow keys
 vim.keymap.set("n", "<A-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
@@ -51,14 +44,14 @@ vim.keymap.set("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
 vim.keymap.set("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 vim.keymap.set("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 
-vim.keymap.set({"i","n"}, "<esc>", "<cmd>noh<cr><esc>",{desc = "Test"})
+vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Test" })
 -- Better Indenting
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
 -- File manipulations
 vim.keymap.set("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
--- 
+--
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
