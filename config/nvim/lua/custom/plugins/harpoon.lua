@@ -16,8 +16,9 @@ return {
         harpoon:setup({})
         -- REQUIRED
 
-        vim.keymap.set("n", "<leader>t", function() harpoon:list():append() end)
-        vim.keymap.set("n", "<A-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+        vim.keymap.set("n", "<leader>H", function() harpoon:list():append() end, { desc = "Append" })
+        vim.keymap.set("n", "<leader>hh", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
+            { desc = " Menu" })
 
         vim.keymap.set("n", "<A-u>", function() harpoon:list():select(1) end)
         vim.keymap.set("n", "<A-i>", function() harpoon:list():select(2) end)
@@ -29,9 +30,23 @@ return {
         vim.keymap.set("n", "<A-S-o>", function() harpoon:list():removeAt(3) end)
         vim.keymap.set("n", "<A-S-p>", function() harpoon:list():removeAt(4) end)
 
-        -- Toggle previous & next buffers stored within Harpoon list
         vim.keymap.set("n", "<A-S-P>", function() harpoon:list():prev() end)
         vim.keymap.set("n", "<A-S-N>", function() harpoon:list():next() end)
+
+        vim.keymap.set("n", "<leader>hu", function() harpoon:list():select(1) end, { desc = "Add 1" })
+        vim.keymap.set("n", "<leader>hi", function() harpoon:list():select(2) end, { desc = "Add 2" })
+        vim.keymap.set("n", "<leader>ho", function() harpoon:list():select(3) end, { desc = "Add 3" })
+        vim.keymap.set("n", "<leader>hp", function() harpoon:list():select(4) end, { desc = "Add 4" })
+
+        vim.keymap.set("n", "<leader>hU", function() harpoon:list():removeAt(1) end, { desc = "Rem 1 " })
+        vim.keymap.set("n", "<leader>hI", function() harpoon:list():removeAt(2) end, { desc = "Rem 2" })
+        vim.keymap.set("n", "<leader>hO", function() harpoon:list():removeAt(3) end, { desc = "Rem 3" })
+        vim.keymap.set("n", "<leader>hP", function() harpoon:list():removeAt(4) end, { desc = "Rem 4" })
+
+
+        vim.keymap.set("n", "<leader>hp", function() harpoon:list():prev() end, { desc = "[P]rev" })
+        vim.keymap.set("n", "<leader>hn", function() harpoon:list():next() end, { desc = "[N]ext" })
+        -- Toggle previous & next buffers stored within Harpoon list
 
         local conf = require("telescope.config").values
         local function toggle_telescope(harpoon_files)
