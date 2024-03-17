@@ -4,6 +4,10 @@
 -- See the kickstart.nvim README for more information
 return {
   "MunifTanjim/prettier.nvim",
+  dependencies = {
+    "neovim/nvim-lspconfig",
+    "jose-elias-alvarez/null-ls.nvim"
+  },
 
   confgg = function()
     local prettier = require("prettier")
