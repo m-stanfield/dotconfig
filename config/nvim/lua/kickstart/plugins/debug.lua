@@ -48,17 +48,14 @@ return {
     }
 
     -- Basic debugging keymaps, feel free to change to your liking!
-    vim.keymap.set('n', '<leader>cp', dap.pause, { desc = 'Debug: Pause' })
-    vim.keymap.set('n', '<leader>cc', dap.continue, { desc = 'Debug: Start/Continue' })
-    vim.keymap.set('n', '<leader>ci', dap.step_into, { desc = 'Debug: Step Into' })
-    vim.keymap.set('n', '<leader>co', dap.step_over, { desc = 'Debug: Step Over' })
     vim.keymap.set('n', '<leader>n', dap.step_over, { desc = 'Debug: Step Over' })
+    vim.keymap.set('n', '<leader>co', dap.step_over, { desc = 'Debug: Step Over' })
     vim.keymap.set('n', '<leader>cO', dap.step_out, { desc = 'Debug: Step Out' })
+    vim.keymap.set('n', '<leader>ci', dap.step_into, { desc = 'Debug: Step Into' })
     vim.keymap.set('n', '<leader>cs', dap.terminate, { desc = 'Debug: Terminate' })
-
-    vim.keymap.set('n', '.', dap.step_over, { desc = 'Debug: Step Over' })
-    vim.keymap.set('n', '<S-.>', dap.step_into, { desc = 'Debug: Step Into' })
-    vim.keymap.set('n', '<C-.>', dap.step_out, { desc = 'Debug: Step Out' })
+    vim.keymap.set('n', '<leader>cr', dap.restart, { desc = 'Debug: Restart' })
+    vim.keymap.set('n', '<leader>cc', dap.continue, { desc = 'Debug: Start/Continue' })
+    vim.keymap.set('n', '<leader>cp', dap.pause, { desc = 'Debug: Pause' })
 
     vim.keymap.set('n', '<leader>cb', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
     vim.keymap.set('n', '<leader>cB', function()
