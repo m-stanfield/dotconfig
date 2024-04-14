@@ -14,6 +14,7 @@ return {
     -- Creates a beautiful debugger UI
     'rcarriga/nvim-dap-ui',
     'mfussenegger/nvim-dap-python',
+    'nvim-neotest/nvim-nio',
 
     -- Installs the debug adapters for you
     'williamboman/mason.nvim',
@@ -22,7 +23,6 @@ return {
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
   },
-
 
   config = function()
     local dap = require 'dap'
@@ -62,18 +62,17 @@ return {
       dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
     end, { desc = 'Debug: Set Breakpoint' })
 
-
     dap.adapters.cppdbg = {
-      id = "cppdbg",
-      type = "executable",
-      command = vim.env.HOME .. "/.cpptools/extension/debugAdapters/bin/OpenDebugAD7",
+      id = 'cppdbg',
+      type = 'executable',
+      command = vim.env.HOME .. '/.cpptools/extension/debugAdapters/bin/OpenDebugAD7',
     }
 
     dap.configurations.cpp = {
       {
-        name = "Launch file",
-        type = "cppdbg",
-        request = "launch",
+        name = 'Launch file',
+        type = 'cppdbg',
+        request = 'launch',
         program = function()
           return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
         end,
@@ -82,7 +81,7 @@ return {
           {
             text = '-enable-pretty-printing',
             description = 'enable pretty printing',
-            ignoreFailures = false
+            ignoreFailures = false,
           },
         },
         stopAtEntry = true,
@@ -98,7 +97,7 @@ return {
           {
             text = '-enable-pretty-printing',
             description = 'enable pretty printing',
-            ignoreFailures = false
+            ignoreFailures = false,
           },
         },
         cwd = '${workspaceFolder}',
@@ -113,16 +112,15 @@ return {
       args = { '-m', 'debugpy.adapter' },
     }
 
-
     dap.configurations.python = {
       {
         -- The first three options are required by nvim-dap
         type = 'python', -- the type here established the link to the adapter definition: `dap.adapters.python`
         request = 'launch',
-        name = "Launch file",
-        cwd = "${workspaceFolder}", --python is executed from this directory
+        name = 'Launch file',
+        cwd = '${workspaceFolder}', --python is executed from this directory
         stopAtEntry = true,
-        program = "${file}",        -- This configuration will launch the current file if used.
+        program = '${file}',        -- This configuration will launch the current file if used.
         pythonPath = function()
           -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
           -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
@@ -132,7 +130,7 @@ return {
             return cwd .. '/venv/bin/python'
           elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
             return cwd .. '/.venv/bin/python'
-          elseif vim.fn.executable('/usr/bin/python3') == 1 then
+          elseif vim.fn.executable '/usr/bin/python3' == 1 then
             return '/usr/bin/python3'
           else
             return '/usr/bin/python'
