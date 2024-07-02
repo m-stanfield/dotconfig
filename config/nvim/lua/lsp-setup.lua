@@ -77,6 +77,7 @@ local servers = {
   tsserver = {},
   html = { filetypes = { 'html', 'twig', 'hbs', 'tmpl' } },
 
+  ruff = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
