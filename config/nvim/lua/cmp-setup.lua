@@ -41,9 +41,15 @@ cmp.setup {
     end, { 'i', 's' }),
   },
   sources = {
-    { name = 'nvim_lsp' },
+    { name = 'nvim_lsp',
+      entry_filter = function(entry, ctx)
+        local kind = cmp.lsp.CompletionItemKind[entry:get_kind()]
+        if kind == "Text" then return false end
+        return true
+      end
+    },
     { name = 'luasnip' },
-    { name = 'nvim_lsp_signature_help'},
+    { name = 'nvim_lsp_signature_help' },
   },
 }
 

@@ -75,8 +75,9 @@ local servers = {
   pyright = {},
   -- rust_analyzer = {},
   tsserver = {},
-  html = { filetypes = { 'html', 'twig', 'hbs' } },
+  html = { filetypes = { 'html', 'twig', 'hbs', 'tmpl' } },
 
+  ruff = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
