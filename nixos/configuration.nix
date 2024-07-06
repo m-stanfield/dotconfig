@@ -108,12 +108,19 @@
   programs.firefox.enable = true;
   programs.zsh.enable = true;
 
+  home-manager = {
+    extraSpecialArgs = {inherit inputs; }; 
+    users = {
+      "matt" = import ./home.nix;
+    };
+  };
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     stow
     tmux
     neovim
+    unzip
     git
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
