@@ -2,4 +2,3 @@
 *.exe
 
 config/tmux/plugins/*
-hardware-configuration.nix
