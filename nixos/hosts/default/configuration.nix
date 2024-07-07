@@ -12,8 +12,9 @@
       inputs.home-manager.nixosModules.default
     ];
 
-    main-user.enable = true;
-    main-user.userName = "testName";
+
+  main-user.enable = true;
+  main-user.userName = "testName";
 
   # Enabling features
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -51,17 +52,14 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
+    enable = true;
     layout = "us";
     xkbVariant = "";
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
   };
 
   # Enable CUPS to print documents.
@@ -97,8 +95,10 @@
   };
 
   # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "matt";
+  services.xserver.displayManager.autoLogin = {
+    enable = true;
+    user = "matt";
+  };
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
@@ -111,7 +111,11 @@
   home-manager = {
     extraSpecialArgs = {inherit inputs; }; 
     users = {
-      "matt" = import ./home.nix;
+      matt = {
+        imports = [ 
+          ./home.nix
+        ];
+      };
     };
   };
   # List packages installed in system profile. To search, run:
@@ -119,11 +123,15 @@
   environment.systemPackages = with pkgs; [
     stow
     tmux
+    kitty
+    catppuccin
     neovim
+    ripgrep
     unzip
     git
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+    lazygit
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
