@@ -8,7 +8,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./main-user.nix
       inputs.home-manager.nixosModules.default
     ];
 
@@ -124,7 +123,6 @@
     stow
     tmux
     kitty
-    catppuccin
     neovim
     ripgrep
     unzip
