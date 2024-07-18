@@ -3,6 +3,7 @@
 local teleactions = require("telescope.actions")
 require('telescope').setup {
   defaults = {
+    file_ignore_patterns = { "node_modules", ".venv" },
     mappings = {
       i = {
         ['<C-u>'] = false,
@@ -48,6 +49,7 @@ local function live_grep_git_root()
   if git_root then
     require('telescope.builtin').live_grep({
       search_dirs = { git_root },
+
     })
   end
 end
