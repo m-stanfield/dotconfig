@@ -160,11 +160,34 @@ return {
           disconnect = '⏏',
         },
       },
+      layouts = { {
+        elements = { {
+          id = "scopes",
+          size = 0.3
+        }, {
+          id = "breakpoints",
+          size = 0.3
+        }, {
+          id = "stacks",
+          size = 0.3
+        }, },
+        position = "left",
+        size = 20
+      }, {
+        elements = { {
+          id = "repl",
+          size = 1.0
+        },
+        },
+        position = "bottom",
+        size = 10
+      } },
     }
 
     -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
     vim.keymap.set('n', '<F7>', dapui.toggle, { desc = 'Debug: See last session result.' })
-
+    vim.keymap.set('n', '<leader>k', '<Cmd>lua require("dapui").eval()<CR>',
+      { desc = "Debug: Hover debug values", noremap = true, silent = true })
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
