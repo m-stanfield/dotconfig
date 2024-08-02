@@ -3,7 +3,7 @@
 local teleactions = require("telescope.actions")
 require('telescope').setup {
   defaults = {
-    file_ignore_patterns = { "node_modules", ".venv" },
+    file_ignore_patterns = { "node_modules", ".venv", "/usr" },
     mappings = {
       i = {
         ['<C-u>'] = false,
