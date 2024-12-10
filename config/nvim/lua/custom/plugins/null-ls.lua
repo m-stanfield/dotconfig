@@ -24,7 +24,9 @@ return {
           extra_args = { "--line-length=120" }
         }),
         null_ls.builtins.formatting.isort,
-      },
+        null_ls.builtins.formatting.gofumpt,
+        null_ls.builtins.formatting.goimports_reviser,
+        null_ls.builtins.formatting.golines },
 
       on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then
