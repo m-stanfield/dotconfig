@@ -57,7 +57,19 @@ require('lazy').setup({
 
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
+      "tailwind-tools",
+      "onsails/lspkind-nvim",
     },
+    opts = function()
+      return {
+        -- ...
+        formatting = {
+          format = require("lspkind").cmp_format({
+            before = require("tailwind-tools.cmp").lspkind_format
+          }),
+        },
+      }
+    end,
   },
 
   -- Useful plugin to show you pending keybinds.
