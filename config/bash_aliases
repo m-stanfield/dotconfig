@@ -24,3 +24,13 @@ function cd() {
     fi
   fi
 }
+
+# Add Go binaries to PATH
+if [ -n "$GOBIN" ]; then
+    export PATH="$PATH:$GOBIN"
+elif [ -n "$GOPATH" ]; then
+    export PATH="$PATH:$GOPATH/bin"
+else 
+    export PATH="$PATH:~/go/bin"
+fi
+
