@@ -83,7 +83,7 @@ local servers = {
   pyright = {},
   -- rust_analyzer = {},
   html = { filetypes = { 'html', 'twig', 'hbs', 'tmpl' } },
-  ruff = {},
+  -- ruff = {},
 
   lua_ls = {
     Lua = {
