@@ -67,7 +67,25 @@ return {
       type = 'executable',
       command = vim.env.HOME .. '/.cpptools/extension/debugAdapters/bin/OpenDebugAD7',
     }
+    dap.adapters.delve = {
+      type = "server",
+      host = "127.0.0.1",
+      port = "8086",
+      executable = {
+        command = "dlv",
+        args = { "dap", "-l", "127.0.0.1:8086", "--log" },
+      },
+    }
 
+
+    dap.configurations.go = {
+      {
+        type = "delve",
+        name = "Debug",
+        request = "launch",
+        program = "${file}",
+      },
+    }
     dap.configurations.cpp = {
       {
         name = 'Launch file',
