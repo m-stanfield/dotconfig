@@ -2,3 +2,4 @@
 *.exe
 
 config/tmux/plugins/*
+config/nvim/lua/custom/plugins/copilot.lua
