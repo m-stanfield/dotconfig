@@ -24,6 +24,15 @@
           inputs.catppuccin.nixosModules.catppuccin
         ];
       };
+      laptop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./hosts/laptop/configuration.nix
+          inputs.home-manager.nixosModules.default
+          inputs.catppuccin.nixosModules.catppuccin
+        ];
+      };
     };
   };
 }
