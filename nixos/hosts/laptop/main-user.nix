@@ -20,6 +20,7 @@ in
     isNormalUser = true;
     initialPassword = "matt";
     description = "matt descirption";
+    extraGroups = ["wheels"];
     shell = pkgs.zsh;
   };
   };
