@@ -85,7 +85,7 @@
   };
 
  programs.neovim = {
-   extraConfig = lib.fileContents ../config/nvim/init.lua;
+   extraConfig = lib.fileContents ../../config/nvim/init.lua;
  };
 
   # Let Home Manager install and manage itself.
