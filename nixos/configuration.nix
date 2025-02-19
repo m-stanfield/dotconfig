@@ -111,7 +111,6 @@
     tmux
     kitty
     catppuccin
-    neovim
     ripgrep
     unzip
     git
