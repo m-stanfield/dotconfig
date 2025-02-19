@@ -108,7 +108,7 @@
     users = {
       matt = {
         imports = [ 
-          ./home.nix
+          ./home-manager/home.nix
         ];
       };
     };
