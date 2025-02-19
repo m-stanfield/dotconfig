@@ -3,8 +3,8 @@
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "matt";
-  home.homeDirectory = "/home/matt";
+  home.username = "testName";
+  home.homeDirectory = "/home/testName";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -65,7 +65,7 @@
   #
   # or
   #
-  #  /etc/profiles/per-user/matt/etc/profile.d/hm-session-vars.sh
+  #  /etc/profiles/per-user/testName/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
     # EDITOR = "emacs";
