@@ -20,6 +20,7 @@
         specialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/default/configuration.nix
+          ./configuration.nix
           inputs.home-manager.nixosModules.default
           inputs.catppuccin.nixosModules.catppuccin
         ];
@@ -28,6 +29,7 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
         modules = [
+          ./configuration.nix
           ./hosts/laptop/configuration.nix
           inputs.home-manager.nixosModules.default
           inputs.catppuccin.nixosModules.catppuccin
