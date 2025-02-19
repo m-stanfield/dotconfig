@@ -103,16 +103,6 @@
   programs.firefox.enable = true;
   programs.zsh.enable = true;
 
-  home-manager = {
-    extraSpecialArgs = {inherit inputs; }; 
-    users = {
-      matt = {
-        imports = [ 
-          ./home-manager/home.nix
-        ];
-      };
-    };
-  };
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
