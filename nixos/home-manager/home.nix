@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -83,6 +83,10 @@
     userName = "m-stanfield";
     userEmail = "mattstanfield52@gmail.com";
   };
+
+ programs.neovim = {
+   extraConfig = lib.fileContents ../config/nvim/init.lua;
+ };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
