@@ -68,13 +68,21 @@
   #  /etc/profiles/per-user/testName/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "neovim";
   };
+
+  gtk = {
+    enable = true;
+    theme.name = "adw-gtk3";
+    cursorTheme.name = "Bibata-Modern-Ice";
+    iconTheme.name = "GruvboxPlus";
+  };
+
   programs.git = {
-  enable = true;
-  userName = "m-stanfield";
-  userEmail = "mattstanfield52@gmail.com";
-  }
+    enable = true;
+    userName = "m-stanfield";
+    userEmail = "mattstanfield52@gmail.com";
+  };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
