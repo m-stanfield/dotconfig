@@ -70,6 +70,11 @@
   home.sessionVariables = {
     # EDITOR = "emacs";
   };
+  programs.git = {
+  enable = true;
+  userName = "m-stanfield";
+  userEmail = "mattstanfield52@gmail.com";
+  }
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
