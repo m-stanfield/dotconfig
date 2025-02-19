@@ -7,10 +7,13 @@
 {
   imports =
     [ # Include the results of the hardware scan.
+      ./home-manager/main-user.nix
       inputs.home-manager.nixosModules.default
     ];
 
 
+  main-user.enable = true;
+  main-user.userName = "testName";
 
   # Enabling features
   nix.settings.experimental-features = ["nix-command" "flakes"];
