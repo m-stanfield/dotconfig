@@ -33,6 +33,7 @@
           ./hosts/laptop/configuration.nix
           inputs.home-manager.nixosModules.default
           inputs.catppuccin.nixosModules.catppuccin
+          inputs.catppuccin.homeManagerModules.catppuccin
         ];
       };
     };
