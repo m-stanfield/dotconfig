@@ -110,7 +110,7 @@
     cloc
     htop
     home-manager
-    # tmux
+    tmux
     kitty
     catppuccin
     ripgrep

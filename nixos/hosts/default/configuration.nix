@@ -122,7 +122,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     stow
-    # tmux
+    tmux
     kitty
     catppuccin
     neovim
