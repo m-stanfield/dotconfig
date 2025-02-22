@@ -1,6 +1,46 @@
 { config, pkgs, lib, ... }:
 
 {
+
+  programs.tmux = {
+    enable = true;
+    baseIndex = 1;
+    terminal = "tmux-256color";
+    mouse = true;
+    catppuccin = {
+      enable = true;
+      extraConfig = ''
+        set -g @catppuccin_flavour 'macchiato' # or latte, frappe, macchiato, mocha
+        set -g @catppuccin_window_right_separator ""
+        # set -g @catppuccin_window_right_separator "█"
+        set -g @catppuccin_window_left_separator ""
+        # set -g @catppuccin_window_left_separator ""
+        set -g @catppuccin_window_number_position "left"
+        set -g @catppuccin_window_middle_separator " "
+        set -g @catppuccin_window_default_text "#W"
+        set -g @catppuccin_window_default_fill "none"
+        set -g @catppuccin_window_current_fill "all"
+        set -g @catppuccin_window_current_text "#W"
+        set -g @catppuccin_status_modules_right "user host session"
+        set -g @catppuccin_status_left_separator  " "
+        # set -g @catppuccin_status_left_separator "█"
+        set -g @catppuccin_status_right_separator ""
+        # set -g @catppuccin_status_right_separator "█"
+        set -g @catppuccin_status_right_separator_inverse "no"
+        set -g @catppuccin_status_fill "all"
+        set -g @catppuccin_status_connect_separator "no"
+        set -g @catppuccin_directory_text "#{pane_current_path}"
+      '';
+    };
+    plugins = with pkgs; [
+      tmuxPlugins.vim-tmux-navigator
+    ];
+    extraConfig = ''
+      set -ag terminal-overrides ",$TERM:RGB"
+    '';
+  };
+
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "testName";
@@ -52,7 +92,9 @@
     # '';
   };
 
+
   xdg.configFile.nvim.source = ../../config/nvim;
+  # xdg.configFile.tmux.source = ../../config/tmux;
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
   # shell provided by Home Manager. If you don't want to manage your shell
@@ -104,6 +146,8 @@
       nodePackages.neovim  # Required for Node-based Neovim plugins
     ];
  };
+
+
 
 
   # Let Home Manager install and manage itself.
