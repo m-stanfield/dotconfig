@@ -43,6 +43,7 @@
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
     # ".screenrc".source = dotfiles/screenrc;
+#    ".config.source" = ../../config;
 
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
@@ -51,6 +52,7 @@
     # '';
   };
 
+  xdg.configFile.nvim.source = ../../config/nvim;
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
   # shell provided by Home Manager. If you don't want to manage your shell
@@ -86,8 +88,23 @@
 
  programs.neovim = {
    enable = true;
-   extraConfig = lib.fileContents ../../config/nvim/init.lua;
+     extraPackages = with pkgs; [
+      clang
+      llvm
+      python3
+      python3Packages.pynvim  # Required for Python Neovim support
+
+      # Go
+      go
+      gopls  # Go LSP for autocompletion
+
+      # Node.js
+      nodejs
+      nodePackages.pnpm  # Optional: npm or yarn
+      nodePackages.neovim  # Required for Node-based Neovim plugins
+    ];
  };
+
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
