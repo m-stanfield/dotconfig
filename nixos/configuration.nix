@@ -107,6 +107,8 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     stow
+    cloc
+    htop
     home-manager
     tmux
     kitty
