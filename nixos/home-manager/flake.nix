@@ -22,7 +22,7 @@
         # the path to your home.nix.
         modules = [ 
         ./home.nix 
-#       ./tmux.nix
+        ./tmux.nix
        ];
 
         # Optionally use extraSpecialArgs
