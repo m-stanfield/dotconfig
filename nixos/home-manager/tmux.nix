@@ -2,7 +2,7 @@
 
 {
   programs.tmux = {
-    enable = false;
+    enable = true;
     plugins = with pkgs.tmuxPlugins; [
       sensible
       resurrect
