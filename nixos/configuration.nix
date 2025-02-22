@@ -123,9 +123,9 @@
 
   home-manager = {
   extraSpecialArgs = {inherit inputs; };
-  users = {
-	  testName = import ./home-manager/home.nix;
-  };
+	  users = {
+		  "testName" = import ./home-manager/home.nix;
+	  };
   };
 
   # Some programs need SUID wrappers, can be configured further or are
