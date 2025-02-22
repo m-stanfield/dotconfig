@@ -21,7 +21,7 @@ in
     initialPassword = "matt";
     description = "matt descirption";
     extraGroups = ["wheels"];
-    shell = pkgs.zsh;
+#    shell = pkgs.zsh;
   };
   };
 }
