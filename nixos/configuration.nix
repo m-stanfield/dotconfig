@@ -13,7 +13,7 @@
 
 
   main-user.enable = true;
-  main-user.userName = "testName";
+  main-user.userName = "matt";
   main-user.autoLogin = true;
 
   # Enabling features
@@ -80,15 +80,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.matt = {
-    isNormalUser = true;
-    description = "matt";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    #  thunderbird
-    ];
-  };
 
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
