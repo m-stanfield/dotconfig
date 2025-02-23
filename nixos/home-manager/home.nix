@@ -111,6 +111,11 @@
       nodejs
       nodePackages.pnpm  # Optional: npm or yarn
       nodePackages.neovim  # Required for Node-based Neovim plugins
+
+      prettierd
+      isort
+      black
+      stylua
     ];
  };
 
