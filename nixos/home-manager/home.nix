@@ -97,26 +97,30 @@
  programs.neovim = {
    vimAlias = true;
    enable = true;
-     extraPackages = with pkgs; [
-      clang
-      llvm
-      python3
-      python3Packages.pynvim  # Required for Python Neovim support
+   extraLuaPackages = luaPkgs: with luaPkgs; [ luarocks];
+   extraPackages = with pkgs; [
+    clang
+    llvm
+    python3
+    python3Packages.pynvim  # Required for Python Neovim support
 
-      # Go
-      go
-      gopls  # Go LSP for autocompletion
+    # Go
+    go
+    gopls  # Go LSP for autocompletion
 
-      # Node.js
-      nodejs
-      nodePackages.pnpm  # Optional: npm or yarn
-      nodePackages.neovim  # Required for Node-based Neovim plugins
+    # Node.js
+    nodejs
+    nodePackages.pnpm  # Optional: npm or yarn
+    nodePackages.neovim  # Required for Node-based Neovim plugins
 
-      prettierd
-      isort
-      black
-      stylua
-    ];
+    prettierd
+    isort
+    black
+    stylua
+    #eslint
+    delve
+
+  ];
  };
 
 
