@@ -84,6 +84,7 @@
   };
 
  programs.neovim = {
+   vimAlias = true;
    enable = true;
      extraPackages = with pkgs; [
       clang
