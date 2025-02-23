@@ -6,6 +6,7 @@ in
 {
   options.main-user = {
     enable = lib.mkEnableOption "enable user module";
+    autoLogin = lib.mkEnableOption "autologin user";
 
     userName = lib.mkOption {
       default = "mainuser";
@@ -23,5 +24,11 @@ in
     extraGroups = ["wheel"];
 #    shell = pkgs.zsh;
   };
+  # Enable automatic login for the user.
+  services.xserver.displayManager.autoLogin = {
+    enable = cfg.autoLogin;
+    user = cfg.userName;
+  };
+
   };
 }
