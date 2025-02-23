@@ -77,6 +77,17 @@
   };
 
 
+  programs.kitty = {
+    enable = true;
+    font = {
+      name = "JetBrainsMono Nerd Font Mono";
+      size=10;
+    };
+    shellIntegration.enableFishIntegration = true;
+    theme = "Catppuccin-Mocha";
+  };
+
+
   programs.git = {
     enable = true;
     userName = "m-stanfield";
