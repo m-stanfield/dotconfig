@@ -20,9 +20,8 @@ in
   users.users.${cfg.userName} = {
     isNormalUser = true;
     initialPassword = "matt";
-    description = "matt descirption";
-    extraGroups = ["wheel"];
-#    shell = pkgs.zsh;
+    description = cfg.userName;
+    extraGroups = [ "networkmanager" "wheel" ];
   };
   # Enable automatic login for the user.
   services.xserver.displayManager.autoLogin = {
