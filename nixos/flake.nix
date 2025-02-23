@@ -22,7 +22,6 @@
           ./hosts/default/configuration.nix
           ./configuration.nix
           inputs.home-manager.nixosModules.default
-          # inputs.catppuccin.nixosModules.catppuccin
         ];
       };
       laptop = nixpkgs.lib.nixosSystem {
@@ -32,8 +31,6 @@
           ./configuration.nix
           ./hosts/laptop/configuration.nix
           inputs.home-manager.nixosModules.default
-          #inputs.catppuccin.nixosModules.catppuccin
-          #inputs.catppuccin.homeManagerModules.catppuccin
         ];
       };
     };
