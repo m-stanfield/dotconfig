@@ -67,7 +67,25 @@ return {
       type = 'executable',
       command = vim.env.HOME .. '/.cpptools/extension/debugAdapters/bin/OpenDebugAD7',
     }
+    dap.adapters.delve = {
+      type = "server",
+      host = "127.0.0.1",
+      port = "8086",
+      executable = {
+        command = "dlv",
+        args = { "dap", "-l", "127.0.0.1:8086", "--log" },
+      },
+    }
 
+
+    dap.configurations.go = {
+      {
+        type = "delve",
+        name = "Debug",
+        request = "launch",
+        program = "${file}",
+      },
+    }
     dap.configurations.cpp = {
       {
         name = 'Launch file',
@@ -127,7 +145,9 @@ return {
           -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
           -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
           local cwd = vim.fn.getcwd()
-          if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
+          if vim.env.VIRTUAL_ENV ~= nil and vim.fn.executable(vim.env.VIRTUAL_ENV .. '/bin/python') == 1 then
+            return vim.env.VIRTUAL_ENV .. '/bin/python'
+          elseif vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
             return cwd .. '/venv/bin/python'
           elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
             return cwd .. '/.venv/bin/python'
@@ -160,11 +180,34 @@ return {
           disconnect = '⏏',
         },
       },
+      layouts = { {
+        elements = { {
+          id = "scopes",
+          size = 0.3
+        }, {
+          id = "breakpoints",
+          size = 0.3
+        }, {
+          id = "stacks",
+          size = 0.3
+        }, },
+        position = "left",
+        size = 20
+      }, {
+        elements = { {
+          id = "repl",
+          size = 1.0
+        },
+        },
+        position = "bottom",
+        size = 10
+      } },
     }
 
     -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
     vim.keymap.set('n', '<F7>', dapui.toggle, { desc = 'Debug: See last session result.' })
-
+    vim.keymap.set('n', '<leader>k', '<Cmd>lua require("dapui").eval()<CR>',
+      { desc = "Debug: Hover debug values", noremap = true, silent = true })
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close

@@ -2,6 +2,7 @@ PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[0
 
 alias swapmonitor="~/.config/regolith3/i3/scripts/extended_monitors.sh"
 alias swapaudio="~/.config/audio.sh"
+alias gocover="go test ./... -coverprofile=coverage.out; go tool cover -html=coverage.out -o coverage.html; rm coverage.out"
 
 
 alias vim="nvim"
@@ -24,3 +25,13 @@ function cd() {
     fi
   fi
 }
+
+# Add Go binaries to PATH
+if [ -n "$GOBIN" ]; then
+    export PATH="$PATH:$GOBIN"
+elif [ -n "$GOPATH" ]; then
+    export PATH="$PATH:$GOPATH/bin"
+else 
+    export PATH="$PATH:~/go/bin"
+fi
+

@@ -9,7 +9,7 @@ return {
     "jose-elias-alvarez/null-ls.nvim"
   },
 
-  confgg = function()
+  config = function()
     local prettier = require("prettier")
 
     prettier.setup({

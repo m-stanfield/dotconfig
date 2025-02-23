@@ -5,3 +5,4 @@
 config/tmux/plugins/*
 .venv
 .direnv
+config/nvim/lua/custom/plugins/copilot.lua
