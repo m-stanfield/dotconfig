@@ -3,3 +3,4 @@
 
 config/tmux/plugins/*
 .venv
+nixos/examples/nixospython/.direnv
