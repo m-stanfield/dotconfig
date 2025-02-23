@@ -35,6 +35,7 @@
     python3Packages.debugpy
     python3Packages.pip
 
+
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
     # # environment:
@@ -42,6 +43,14 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
   ];
+    home.activation.createDebugpyVenv = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if [ ! -d "$HOME/.virtualenvs/debugpy" ]; then
+      ${pkgs.python3}/bin/python -m venv $HOME/.virtualenvs/debugpy
+    fi
+    source $HOME/.virtualenvs/debugpy/bin/activate
+    $HOME/.virtualenvs/debugpy/bin/pip install --upgrade pip
+    $HOME/.virtualenvs/debugpy/bin/pip install debugpy
+  '';
 
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
