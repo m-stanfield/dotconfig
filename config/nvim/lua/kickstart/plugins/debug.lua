@@ -73,7 +73,7 @@ return {
       port = "8086",
       executable = {
         command = "dlv",
-        args = { "dap", "-l", "127.0.0.1:8086", "--log" },
+        args = { "dap", "-l", "127.0.0.1:8086", "--log", "--log-output=dap" },
       },
     }
 
