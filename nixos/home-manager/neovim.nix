@@ -14,6 +14,7 @@
     llvm
     python3
     python3Packages.pynvim  # Required for Python Neovim support
+    python3Packages.debugpy
 
     # Go
     go
