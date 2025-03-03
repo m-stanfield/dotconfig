@@ -89,7 +89,7 @@
   #
   home.sessionVariables = {
     EDITOR = "neovim";
-      BROWSER = "firefox";
+    BROWSER = "firefox";
     TERMINAL = "kitty";
   };
 
