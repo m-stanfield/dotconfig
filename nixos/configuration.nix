@@ -50,12 +50,13 @@
 
 
   # Configure keymap in X11
+  
   services.xserver = {
-    enable = true;
-    layout = "us";
-    xkbVariant = "";
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
+      enable = true;
+      windowManager.i3.enable = true;
+      };
+  services.displayManager = {
+	defaultSession = "none+i3";
   };
 
   # Enable CUPS to print documents.
