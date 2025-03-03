@@ -55,9 +55,18 @@
     xserver = {
 	enable = true;
 	windowManager.i3.enable = true;
+	desktopManager = {
+	  xterm.enable = true;
+	  xfce = {
+	    enable = true;
+	    noDesktop = true;
+	    enableXfwm = false;
+	  };
+	};
     };
     displayManager = {
-	  defaultSession = "none+i3";
+	  
+	  defaultSession = "xfce+i3";
     };
   };
 
