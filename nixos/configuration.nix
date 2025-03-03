@@ -51,12 +51,14 @@
 
   # Configure keymap in X11
   
-  services.xserver = {
-      enable = true;
-      windowManager.i3.enable = true;
-      };
-  services.displayManager = {
-	defaultSession = "none+i3";
+  services = {
+    xserver = {
+	enable = true;
+	windowManager.i3.enable = true;
+    };
+    displayManager = {
+	  defaultSession = "none+i3";
+    };
   };
 
   # Enable CUPS to print documents.
@@ -115,10 +117,10 @@
   ];
 
   home-manager = {
-  extraSpecialArgs = {inherit inputs; };
-	  users = {
-		  "matt" = import ./home-manager/home.nix;
-	  };
+    extraSpecialArgs = {inherit inputs; };
+    users = {
+      "matt" = import ./home-manager/home.nix;
+    };
   };
 
   # Some programs need SUID wrappers, can be configured further or are
