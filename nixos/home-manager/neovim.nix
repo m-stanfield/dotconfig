@@ -6,7 +6,7 @@
  programs.neovim = {
    vimAlias = true;
    enable = true;
-       package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+       # package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
    extraLuaPackages = luaPkgs: with luaPkgs; [ luarocks];
 
    extraPackages = with pkgs; [
