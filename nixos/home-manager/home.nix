@@ -3,6 +3,7 @@
 {
   imports = [
     ./tmux.nix
+    ./neovim.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -69,7 +70,6 @@
     # '';
   };
 
-  xdg.configFile.nvim.source = ../../config/nvim;
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
   # shell provided by Home Manager. If you don't want to manage your shell
@@ -108,34 +108,6 @@
     userEmail = "mattstanfield52@gmail.com";
   };
 
- programs.neovim = {
-   vimAlias = true;
-   enable = true;
-   extraLuaPackages = luaPkgs: with luaPkgs; [ luarocks];
-   extraPackages = with pkgs; [
-    clang
-    llvm
-    python3
-    python3Packages.pynvim  # Required for Python Neovim support
-
-    # Go
-    go
-    gopls  # Go LSP for autocompletion
-
-    # Node.js
-    nodejs
-    nodePackages.pnpm  # Optional: npm or yarn
-    nodePackages.neovim  # Required for Node-based Neovim plugins
-
-    prettierd
-    isort
-    black
-    stylua
-    #eslint
-    delve
-
-  ];
- };
 
 
   # Let Home Manager install and manage itself.

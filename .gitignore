@@ -3,6 +3,8 @@
 *.exe
 
 config/tmux/plugins/*
+.venv
+.direnv
 config/nvim/lua/custom/plugins/copilot.lua
 hardware-configuration.nix
 .venv

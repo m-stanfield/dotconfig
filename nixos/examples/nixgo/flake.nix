@@ -27,6 +27,7 @@
           packages = with pkgs; [  
             go # Go 1.22  
             gotools # Go tools like goimports, godoc, and others  
+            delve
           ];  
         };  
     });  
