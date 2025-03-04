@@ -10,6 +10,7 @@
    extraLuaPackages = luaPkgs: with luaPkgs; [ luarocks];
 
    extraPackages = with pkgs; [
+   xclip
     clang
     llvm
     python3
@@ -31,6 +32,15 @@
     stylua
     #eslint
     delve
+
+  # Debugging tools
+
+  # Language servers
+  nodePackages.vscode-langservers-extracted # Includes html-lsp, css-lsp, eslint-lsp
+
+  # Other Mason dependencies
+  unzip    # Needed for Mason tools
+  ripgrep  # Improves LSP performance in Neovim
 
   ];
  };
