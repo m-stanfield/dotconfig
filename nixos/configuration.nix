@@ -8,13 +8,17 @@
   imports =
     [ # Include the results of the hardware scan.
       ./main-user.nix
+      ./steam.nix
       inputs.home-manager.nixosModules.default
     ];
 
+  # enable unfree software
+  nixpkgs.config.allowUnfree = true;
 
   main-user.enable = true;
   main-user.userName = "matt";
   main-user.autoLogin = true;
+
 
   # Enabling features
   nix.settings.experimental-features = ["nix-command" "flakes"];
