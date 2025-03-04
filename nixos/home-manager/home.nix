@@ -114,4 +114,22 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+  programs.rofi = {
+  enable = true;
+  theme = "arthur"; 
+  extraConfig = {
+  terminal = "kitty";
+  modi = "drun,run,window,filebrowser";
+
+  show-icons = true;
+
+  # can you make symbols for the display options?
+  display-run = "";
+  display-window = "";
+  display-filebrowser = "";
+  display-drun = "";
+
+  };
+
+  };
 }

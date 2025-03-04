@@ -8,7 +8,6 @@ in
     i3status
     i3lock
     i3-gaps
-    rofi 
   ];
 
 #in home.nix
@@ -22,8 +21,10 @@ in
         "JetBrains Mono:size=10"
       ];
       keybindings = lib.mkOptionDefault{
-        "${mod}+Return" = "exec kitty"; # Replace Mod1 with Mod4 if using Super key
-        "${mod}+space" = "exec rofi -show run"; # Replace Mod1 with Mod4 if using Super key
+        "${mod}+Return" = "exec kitty";  
+        "${mod}+space" = "exec rofi -show drun"; 
+        "${mod}+Tab" = "exec rofi -show window";  
+        "${mod}+Shift+D" = "exec rofi -show run"; 
         # Focus
         "${mod}+h" = "focus left";
         "${mod}+j" = "focus down";
