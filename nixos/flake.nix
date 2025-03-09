@@ -16,11 +16,11 @@
     inherit (self) outputs;
   in {
     nixosConfigurations = {
-      default = nixpkgs.lib.nixosSystem {
+      desktop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
         modules = [
-          ./hosts/default/configuration.nix
+          ./hosts/desktop/configuration.nix
           ./configuration.nix
           inputs.home-manager.nixosModules.default
         ];
