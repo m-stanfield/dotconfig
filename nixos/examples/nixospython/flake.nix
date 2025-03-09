@@ -16,6 +16,7 @@
         python = pkgs.python311;
         pythonPackages = python.withPackages (ps: with ps; [
           requests
+          numpy
         ]);
 
       in {
@@ -35,6 +36,7 @@
               ${python}/bin/python -m venv .venv
               source .venv/bin/activate
               pip install --upgrade pip
+              pip install -r requirements.txt
             fi
             source .venv/bin/activate
             echo "Virtual environment activated!"
