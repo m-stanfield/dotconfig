@@ -56,6 +56,7 @@
   # Configure keymap in X11
   
   services = {
+    blueman.enable = true;
     xserver = {
 	enable = true;
 	windowManager.i3.enable = true;
