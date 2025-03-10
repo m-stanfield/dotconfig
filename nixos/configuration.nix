@@ -7,6 +7,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
+    ./obs.nix
       ./main-user.nix
       ./steam.nix
       inputs.home-manager.nixosModules.default
