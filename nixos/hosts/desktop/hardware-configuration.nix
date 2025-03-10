@@ -6,6 +6,7 @@
 {
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
+    ./nvidia.nix
     ];
 
   hardware.bluetooth.enable = true;
