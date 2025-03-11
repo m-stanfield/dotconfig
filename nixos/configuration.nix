@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
     ./obs.nix
+    ./autorandr.nix
       ./main-user.nix
       ./steam.nix
       inputs.home-manager.nixosModules.default
@@ -58,22 +59,6 @@
   
   services = {
     blueman.enable = true;
-    xserver = {
-	enable = true;
-	windowManager.i3.enable = true;
-	desktopManager = {
-	  xterm.enable = true;
-	  xfce = {
-	    enable = true;
-	    noDesktop = true;
-	    enableXfwm = false;
-	  };
-	};
-    };
-    displayManager = {
-	  
-	  defaultSession = "xfce+i3";
-    };
   };
 
   # Enable CUPS to print documents.
