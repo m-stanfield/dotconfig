@@ -25,6 +25,7 @@ in
         "${mod}+space" = "exec rofi -show drun"; 
         "${mod}+Tab" = "exec rofi -show window";  
         "${mod}+Shift+D" = "exec rofi -show run"; 
+        "${mod}+Shift+Return" = "exec firefox"; 
         # Focus
         "${mod}+h" = "focus left";
         "${mod}+j" = "focus down";
