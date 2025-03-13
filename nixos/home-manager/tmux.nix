@@ -1,24 +1,24 @@
-{ config, lib, pkgs, ... }:
 
+{ config, pkgs, ... }:
 {
   programs.tmux = {
     enable = true;
-    plugins = with pkgs.tmuxPlugins; [
-      sensible
-      resurrect
-      continuum
-      catppuccin
-      vim-tmux-navigator
-      yank
+
+    plugins = [
+      pkgs.tmuxPlugins.better-mouse-mode
+      (pkgs.tmuxPlugins.catppuccin.overrideAttrs (_: {
+        src = pkgs.fetchFromGitHub {
+          owner = "catppuccin";
+          repo = "tmux";
+         rev= "073ee54992c59fedcc29c1525a26f95691f0ae1f";
+        sha256= "11gmvifq6lir48rar1n1zp085ss6x3h52aawjqyrhh1i1zlxzpdd";
+        };
+      }))
+      pkgs.tmuxPlugins.sensible
+      pkgs.tmuxPlugins.vim-tmux-navigator
     ];
+
     extraConfig = ''
-      set -g @plugin 'tmux-plugins/tmux-sensible'
-      set -g @plugin 'catppuccin/tmux'
-      set -g @plugin 'christoomey/vim-tmux-navigator'
-      set -g @plugin 'tmux-plugins/tmux-yank'
-
-      set -sg escape-time 10
-
       set -g @catppuccin_window_left_separator ""
       set -g @catppuccin_window_right_separator " "
       set -g @catppuccin_window_middle_separator " █"
