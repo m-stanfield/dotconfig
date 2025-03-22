@@ -16,15 +16,18 @@
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
 
   # enable unfree software
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
+  
+  # Enabling features
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   main-user.enable = true;
   main-user.userName = "matt";
   main-user.autoLogin = true;
 
 
-  # Enabling features
-  nix.settings.experimental-features = ["nix-command" "flakes"];
 
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -103,6 +106,7 @@
   environment.systemPackages = with pkgs; [
     google-chrome
     synology-drive-client
+    vscode
     nvtopPackages.nvidia
     spotify
     discord
@@ -122,11 +126,12 @@
     libreoffice-qt
     hunspell
     hunspellDicts.uk_UA
-];
+  ];
 
   home-manager = {
     extraSpecialArgs = {inherit inputs; };
-  backupFileExtension = "backup";
+    backupFileExtension = "backup";
+    useGlobalPkgs = true;
     users = {
       "matt" = import ./home-manager/home.nix;
     };
