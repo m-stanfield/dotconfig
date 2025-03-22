@@ -13,6 +13,7 @@
       ./steam.nix
       inputs.home-manager.nixosModules.default
     ];
+  environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
 
   # enable unfree software
   nixpkgs.config.allowUnfree = true;
