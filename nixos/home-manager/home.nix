@@ -92,6 +92,8 @@
     TERMINAL = "kitty";
   };
 
+  services.ssh-agent.enable = true;
+
 
   programs.kitty = {
     enable = true;
