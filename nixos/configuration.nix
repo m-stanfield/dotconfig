@@ -27,6 +27,8 @@
   main-user.userName = "matt";
   main-user.autoLogin = true;
 
+  #services.ssh-agent.enable = true;
+  programs.ssh.startAgent = true;
 
 
 
@@ -56,6 +58,12 @@
     LC_PAPER = "en_US.UTF-8";
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
+  };
+
+
+  services.gnome.gnome-keyring = {
+    enable = true;
+
   };
 
 
