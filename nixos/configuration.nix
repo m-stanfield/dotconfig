@@ -11,6 +11,7 @@
     ./autorandr.nix
       ./main-user.nix
       ./steam.nix
+      ./code-cursor.nix
       inputs.home-manager.nixosModules.default
     ];
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
