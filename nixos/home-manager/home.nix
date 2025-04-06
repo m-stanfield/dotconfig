@@ -35,6 +35,7 @@
     python3
     python3Packages.debugpy
     python3Packages.pip
+    cura-appimage
 
 
     # # You can also create simple shell scripts directly inside your
