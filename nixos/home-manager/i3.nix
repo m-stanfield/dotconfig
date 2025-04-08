@@ -32,6 +32,9 @@ in
         "${mod}+k" = "focus up";
         "${mod}+l" = "focus right";
 
+        # splits
+        "${mod}+v" = "split v";
+        "${mod}+b" = "split h"; # if you want to quickly switch back to horizontal
         # Move
         "${mod}+Shift+h" = "move left";
         "${mod}+Shift+j" = "move down";
