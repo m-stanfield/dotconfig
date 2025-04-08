@@ -44,6 +44,7 @@ return {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
         'codelldb',
+        'debugpy',
       },
     }
 
@@ -68,22 +69,21 @@ return {
       command = vim.env.HOME .. '/.cpptools/extension/debugAdapters/bin/OpenDebugAD7',
     }
     dap.adapters.delve = {
-      type = "server",
-      host = "127.0.0.1",
-      port = "8086",
+      type = 'server',
+      host = '127.0.0.1',
+      port = '8086',
       executable = {
-        command = "dlv",
-        args = { "dap", "-l", "127.0.0.1:8086", "--log" },
+        command = 'dlv',
+        args = { 'dap', '-l', '127.0.0.1:8086', '--log', '--log-output=dap' },
       },
     }
 
-
     dap.configurations.go = {
       {
-        type = "delve",
-        name = "Debug",
-        request = "launch",
-        program = "${file}",
+        type = 'delve',
+        name = 'Debug',
+        request = 'launch',
+        program = '${file}',
       },
     }
     dap.configurations.cpp = {
@@ -138,7 +138,7 @@ return {
         name = 'Launch file',
         cwd = '${workspaceFolder}', --python is executed from this directory
         stopAtEntry = true,
-        program = '${file}',        -- This configuration will launch the current file if used.
+        program = '${file}', -- This configuration will launch the current file if used.
         justMyCode = false,
         pythonPath = function()
           -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
@@ -180,34 +180,39 @@ return {
           disconnect = '⏏',
         },
       },
-      layouts = { {
-        elements = { {
-          id = "scopes",
-          size = 0.3
-        }, {
-          id = "breakpoints",
-          size = 0.3
-        }, {
-          id = "stacks",
-          size = 0.3
-        }, },
-        position = "left",
-        size = 20
-      }, {
-        elements = { {
-          id = "repl",
-          size = 1.0
+      layouts = {
+        {
+          elements = {
+            {
+              id = 'scopes',
+              size = 0.3,
+            },
+            {
+              id = 'breakpoints',
+              size = 0.3,
+            },
+            {
+              id = 'stacks',
+              size = 0.3,
+            },
+          },
+          position = 'left',
+          size = 20,
         },
+        {
+          elements = { {
+            id = 'repl',
+            size = 1.0,
+          } },
+          position = 'bottom',
+          size = 10,
         },
-        position = "bottom",
-        size = 10
-      } },
+      },
     }
 
     -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
     vim.keymap.set('n', '<F7>', dapui.toggle, { desc = 'Debug: See last session result.' })
-    vim.keymap.set('n', '<leader>k', '<Cmd>lua require("dapui").eval()<CR>',
-      { desc = "Debug: Hover debug values", noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>k', '<Cmd>lua require("dapui").eval()<CR>', { desc = 'Debug: Hover debug values', noremap = true, silent = true })
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
