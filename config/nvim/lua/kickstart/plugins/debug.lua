@@ -81,9 +81,10 @@ return {
     dap.configurations.go = {
       {
         type = 'delve',
-        name = 'Debug',
+        name = 'Debug Go',
         request = 'launch',
         program = '${file}',
+        outputMode = 'remote',
       },
     }
     dap.configurations.cpp = {
