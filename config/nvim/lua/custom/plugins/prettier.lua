@@ -3,32 +3,34 @@
 --
 -- See the kickstart.nvim README for more information
 return {
-  "MunifTanjim/prettier.nvim",
+  'MunifTanjim/prettier.nvim',
   dependencies = {
-    "neovim/nvim-lspconfig",
-    "jose-elias-alvarez/null-ls.nvim"
+    'neovim/nvim-lspconfig',
+    'nvimtools/none-ls.nvim',
   },
 
   config = function()
-    local prettier = require("prettier")
+    local prettier = require 'prettier'
 
-    prettier.setup({
-      bin = 'prettier', -- or `'prettierd'` (v0.23.3+)
+    prettier.setup {
+      bin = 'prettierd', -- or `'prettier'`
       filetypes = {
-        "css",
-        "graphql",
-        "html",
-        "javascript",
-        "javascriptreact",
-        "json",
-        "less",
-        "markdown",
-        "scss",
-        "typescript",
-        "typescriptreact",
-        "yaml",
+        'css',
+        'graphql',
+        'html',
+        'javascript',
+        'javascriptreact',
+        'json',
+        'less',
+        'markdown',
+        'scss',
+        'typescript',
+        'typescriptreact',
+        'yaml',
       },
-    })
+      cli_options = {
+        tab_width = 4, -- this is the key line
+      },
+    }
   end,
-
 }
