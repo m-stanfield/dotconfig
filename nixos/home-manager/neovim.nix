@@ -1,8 +1,10 @@
 { config, pkgs, lib, inputs, ... }:
 
 {
+  home.activation.linkNeovimConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    ln -sfn "$HOME/code/dotconfig/config/nvim" "$HOME/.config/nvim"
+  '';
 
-  xdg.configFile.nvim.source = ../../config/nvim;
  programs.neovim = {
    vimAlias = true;
    enable = true;
