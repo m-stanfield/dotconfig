@@ -4,6 +4,9 @@
 -- See the kickstart.nvim README for more information
 return {
   'nvimtools/none-ls.nvim',
+  dependencies = {
+    'nvimtools/none-ls-extras.nvim',
+  },
 
   config = function()
     local null_ls = require 'null-ls'
@@ -18,7 +21,7 @@ return {
           extra_args = { '--single-quote', '--jsx-single-quote', '--print-width', '120', '--tab-width', '2' },
         },
         null_ls.builtins.formatting.stylua,
-        null_ls.builtins.diagnostics.eslint,
+        --  null_ls.builtins.diagnostics.eslint,
         null_ls.builtins.completion.spell,
         -- python
         null_ls.builtins.formatting.black.with {
