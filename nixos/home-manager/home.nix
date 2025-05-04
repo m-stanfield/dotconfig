@@ -4,7 +4,7 @@
   imports = [
     ./tmux.nix
     ./neovim.nix
-    ./i3/i3.nix
+    ./i3.nix
     ./synology.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should

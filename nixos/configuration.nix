@@ -138,6 +138,11 @@
     hunspellDicts.uk_UA
   ];
 
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.dejavu-sans-mono
+  ];
+
   home-manager = {
     extraSpecialArgs = {inherit inputs; };
     backupFileExtension = "backup";
