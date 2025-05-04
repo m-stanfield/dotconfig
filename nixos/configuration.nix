@@ -115,7 +115,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     google-chrome
-    synology-drive-client
     vscode
     nvtopPackages.nvidia
     spotify
