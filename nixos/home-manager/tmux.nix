@@ -6,6 +6,12 @@
     mouse = true;
     plugins = with pkgs; [
       tmuxPlugins.vim-tmux-navigator
+      tmuxPlugins.cpu
+      tmuxPlugins.battery
+      tmuxPlugins.resurrect
+      tmuxPlugins.continuum
+      tmuxPlugins.yank
+
       {
       plugin = tmuxPlugins.catppuccin;
         extraConfig = ''
