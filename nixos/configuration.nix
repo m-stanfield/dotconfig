@@ -7,9 +7,9 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-    ./virtual-box.nix
-    ./obs.nix
-    ./autorandr.nix
+      ./virtual-box.nix
+      ./obs.nix
+      ./autorandr.nix
       ./main-user.nix
       ./steam.nix
       ./code-cursor.nix
