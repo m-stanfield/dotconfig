@@ -63,6 +63,7 @@
   };
 
 
+
   services.gnome.gnome-keyring = {
     enable = true;
 
@@ -114,6 +115,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+   playerctl 
     unityhub
     google-chrome
     vscode
@@ -136,6 +138,11 @@
     libreoffice-qt
     hunspell
     hunspellDicts.uk_UA
+  ];
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.dejavu-sans-mono
   ];
 
   home-manager = {

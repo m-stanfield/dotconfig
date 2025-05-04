@@ -1,45 +1,53 @@
-
-{ config, pkgs, ... }:
-{
+{ pkgs, ... }: {
   programs.tmux = {
     enable = true;
+    baseIndex = 1;
+    terminal = "tmux-256color";
+    mouse = true;
+    plugins = with pkgs; [
+      tmuxPlugins.vim-tmux-navigator
+      tmuxPlugins.cpu
+      tmuxPlugins.battery
+      tmuxPlugins.resurrect
+      tmuxPlugins.continuum
+      tmuxPlugins.yank
 
-    plugins = [
-      pkgs.tmuxPlugins.better-mouse-mode
-      (pkgs.tmuxPlugins.catppuccin.overrideAttrs (_: {
-        src = pkgs.fetchFromGitHub {
-          owner = "catppuccin";
-          repo = "tmux";
-         rev= "073ee54992c59fedcc29c1525a26f95691f0ae1f";
-        sha256= "11gmvifq6lir48rar1n1zp085ss6x3h52aawjqyrhh1i1zlxzpdd";
-        };
-      }))
-      pkgs.tmuxPlugins.sensible
-      pkgs.tmuxPlugins.vim-tmux-navigator
+      {
+      plugin = tmuxPlugins.catppuccin;
+        extraConfig = ''
+set -g @catppuccin_flavor 'mocha'
+
+# ~/.tmux.conf
+
+# Options to make tmux more pleasant
+set -g mouse on
+set -g default-terminal "tmux-256color"
+
+# Configure the catppuccin plugin
+set -g @catppuccin_flavor "mocha"
+set -g @catppuccin_window_status_style "rounded"
+
+# Load catppuccin
+run ~/.config/tmux/plugins/catppuccin/tmux/catppuccin.tmux
+# For TPM, instead use `run ~/.tmux/plugins/tmux/catppuccin.tmux`
+
+# Make the status line pretty and add some modules
+set -g status-right-length 100
+set -g status-left-length 100
+set -g status-left ""
+set -g status-right "#{E:@catppuccin_status_application}"
+set -agF status-right "#{E:@catppuccin_status_cpu}"
+set -ag status-right "#{E:@catppuccin_status_session}"
+set -ag status-right "#{E:@catppuccin_status_uptime}"
+set -agF status-right "#{E:@catppuccin_status_battery}"
+
+run ~/.config/tmux/plugins/tmux-plugins/tmux-cpu/cpu.tmux
+run ~/.config/tmux/plugins/tmux-plugins/tmux-battery/battery.tmux
+# Or, if using TPM, just run TPM              '';
+      }
     ];
-
     extraConfig = ''
-      set -g @catppuccin_window_left_separator ""
-      set -g @catppuccin_window_right_separator " "
-      set -g @catppuccin_window_middle_separator " █"
-      set -g @catppuccin_window_number_position "right"
-
-      set -g @catppuccin_window_default_fill "number"
-      set -g @catppuccin_window_default_text "#W"
-
-      set -g @catppuccin_window_current_fill "number"
-      set -g @catppuccin_window_current_text "#W"
-
-      set -g @catppuccin_status_modules "directory user host session"
-      set -g @catppuccin_status_left_separator  " "
-      set -g @catppuccin_status_right_separator ""
-      set -g @catppuccin_status_right_separator_inverse "no"
-      set -g @catppuccin_status_fill "icon"
-      set -g @catppuccin_status_connect_separator "no"
-
-      set -g @catppuccin_directory_text "#{pane_current_path}"
-      set -ga terminal-overrides ",xterm-256color:Tc"
+      set -ag terminal-overrides ",$TERM:RGB"
     '';
   };
 }
-
