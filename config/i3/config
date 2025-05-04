@@ -246,3 +246,8 @@ workspace $ws6 output DP-0-1
 
 workspace $ws7 output DP-0-3
 workspace $ws8 output DP-0-3
+
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioStop exec --no-startup-id playerctl stop
