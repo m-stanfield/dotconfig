@@ -34,7 +34,7 @@ alert_unit = "GB"
 interval = 20
 warning = 50.0
 alert = 20.0
-format = " $icon root: $available.eng(w:2) "
+format = " $icon $available.eng(w:2) "
 
 
 [[block]]
