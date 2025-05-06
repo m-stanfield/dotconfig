@@ -18,6 +18,10 @@
     };
     desktopManager = {
       xterm.enable = false;
+      wallpaper = {
+        combineScreens = false;
+        mode = "fill";
+      };
       xfce = {
 	enable = true;
 	noDesktop = true;
@@ -47,6 +51,12 @@
 	      xrandr --delmonitor "DP-0-2"
 	      xrandr --delmonitor "DP-0-3"
 
+	   '';
+	  };
+
+	 hooks.postswitch ={
+	   "rescale-background" = ''
+	      feh --bg-scale ~/.background-image
 	   '';
 
 	  };
@@ -78,6 +88,9 @@
 	      xrandr --setmonitor "DP-0-1" 1280/1280x1440/173+0+1440 none &&
 	      xrandr --setmonitor "DP-0-2" 2560/2560x1440/173+1280+1440 none &&
 	      xrandr --setmonitor "DP-0-3" 1280/1280x1440/173+3840+1440 none
+	   '';
+	   "rescale-background" = ''
+	      feh --bg-scale ~/.background-image
 	   '';
 
 	  };
