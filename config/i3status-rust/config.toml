@@ -54,4 +54,5 @@ device = "BAT0"
 format = " $icon $percentage "
 full_format = " $icon $percentage "
 empty_format = " $icon $percentage "
+missing_format = "" 
 
