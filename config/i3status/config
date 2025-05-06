@@ -18,7 +18,7 @@ general {
 
 order += "volume master"
 order += "wireless _first_"
-order += "ethernet eno16777736"
+order += "ethernet _first_"
 order += "disk /"
 order += "disk /home"
 order += "memory"
@@ -96,9 +96,10 @@ run_watch VPN {
 }
 
 
-ethernet eno16777736 {
+ethernet _first_ {
         # if you use %speed, i3status requires root privileges
-        format_up = " %speed %ip "
+        #format_up = " %speed %ip "
+        format_up = "LAN: ${bitrate} ${ip} RX:${bytes_received} TX:${bytes_sent}"
         format_down = ""
 }
 
