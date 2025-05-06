@@ -1,6 +1,19 @@
 { config, lib, pkgs, ... }:
 {
 
+
+  services.picom = {
+    enable = true;
+    backend = "glx";
+    vSync = true;
+    settings = {
+      "vsync" = true;
+      "backend" = "glx";
+      "glx-no-stencil" = true;
+      "glx-no-rebind-pixmap" = true;
+      "unredir-if-possible" = false;
+    };
+  };
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
