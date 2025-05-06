@@ -14,11 +14,11 @@ require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
+    'catppuccin/nvim',
+    name = 'catppuccin',
     priority = 1000,
     config = function()
-      vim.cmd("colorscheme catppuccin")
+      vim.cmd 'colorscheme catppuccin'
     end,
   },
   -- NOTE: This is where your plugins related to LSP can be installed.
@@ -57,23 +57,23 @@ require('lazy').setup({
 
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
-      "tailwind-tools",
-      "onsails/lspkind-nvim",
+      'tailwind-tools',
+      'onsails/lspkind-nvim',
     },
     opts = function()
       return {
         -- ...
         formatting = {
-          format = require("lspkind").cmp_format({
-            before = require("tailwind-tools.cmp").lspkind_format
-          }),
+          format = require('lspkind').cmp_format {
+            before = require('tailwind-tools.cmp').lspkind_format,
+          },
         },
       }
     end,
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',  opts = {} },
+  { 'folke/which-key.nvim', opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -87,8 +87,7 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>Gp', require('gitsigns').preview_hunk,
-          { buffer = bufnr, desc = '[G]it [P]review hunk' })
+        vim.keymap.set('n', '<leader>Gp', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[G]it [P]review hunk' })
 
         -- don't override the built-in and fugitive keymaps
         local gs = package.loaded.gitsigns
@@ -114,22 +113,22 @@ require('lazy').setup({
     },
   },
   {
-    "alexghergh/nvim-tmux-navigation",
-    event = "VeryLazy",
+    'alexghergh/nvim-tmux-navigation',
+    event = 'VeryLazy',
     config = function()
-      local nvim_tmux_nav = require("nvim-tmux-navigation")
-      nvim_tmux_nav.setup({
+      local nvim_tmux_nav = require 'nvim-tmux-navigation'
+      nvim_tmux_nav.setup {
         disable_when_zoomed = true,
         -- defaults to false
         keybindings = {
-          left = "<C-h>",
-          down = "<C-j>",
-          up = "<C-k>",
-          right = "<C-l>",
-          last_active = "<C-\\>",
-          next = "<C-Space>",
+          left = '<C-h>',
+          down = '<C-j>',
+          up = '<C-k>',
+          right = '<C-l>',
+          last_active = '<C-\\>',
+          next = '<C-Space>',
         },
-      })
+      }
     end,
   },
   {
@@ -197,28 +196,30 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
   {
-    "ray-x/lsp_signature.nvim",
-    event = "VeryLazy",
+    'ray-x/lsp_signature.nvim',
+    event = 'VeryLazy',
     opts = {},
-    config = function(_, opts) require 'lsp_signature'.setup(opts) end,
+    config = function(_, opts)
+      require('lsp_signature').setup(opts)
+    end,
     on_attach = function(client, bufnr)
-      require "lsp_signature".on_attach({
+      require('lsp_signature').on_attach({
         bind = true, -- This is mandatory, otherwise border config won't get registered.
         handler_opts = {
-          border = "rounded"
-        }
+          border = 'rounded',
+        },
       }, bufnr)
     end,
   },
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
+    'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v3.x',
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-      "MunifTanjim/nui.nvim",
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+      'MunifTanjim/nui.nvim',
       -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-    }
+    },
   },
   -- {'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons'},
   --   {
