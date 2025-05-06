@@ -225,9 +225,10 @@ require('lazy').setup({
               update_in_insert = true,
             },
           },
-          lualine_y = { clients_lsp },
+          lualine_y = { 'encoding', 'fileformat', 'filetype' },
           lualine_z = {
             { 'location', separator = { left = '', right = ' ' }, icon = '' },
+            'progress',
           },
         },
         inactive_sections = {
