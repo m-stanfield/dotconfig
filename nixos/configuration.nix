@@ -115,6 +115,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    maim
+    xclip
     systemctl-tui
     feh
     playerctl 
