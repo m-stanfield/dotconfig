@@ -13,15 +13,29 @@ require('lazy').setup({
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
+  -- NOTE: This is
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
+    'catppuccin/nvim',
+    name = 'catppuccin',
     priority = 1000,
     config = function()
-      vim.cmd("colorscheme catppuccin")
+      require('catppuccin').setup {
+        flavour = 'mocha', -- latte, frappe, macchiato, mocha
+        integrations = {
+          treesitter = true,
+          native_lsp = {
+            enabled = true,
+          },
+          cmp = true,
+          gitsigns = true,
+          telescope = true,
+          nvimtree = true,
+          -- more plugin integrations here
+        },
+      }
+      vim.cmd.colorscheme 'catppuccin'
     end,
   },
-  -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
   {
     -- LSP Configuration & Plugins
@@ -57,23 +71,23 @@ require('lazy').setup({
 
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
-      "tailwind-tools",
-      "onsails/lspkind-nvim",
+      'tailwind-tools',
+      'onsails/lspkind-nvim',
     },
     opts = function()
       return {
         -- ...
         formatting = {
-          format = require("lspkind").cmp_format({
-            before = require("tailwind-tools.cmp").lspkind_format
-          }),
+          format = require('lspkind').cmp_format {
+            before = require('tailwind-tools.cmp').lspkind_format,
+          },
         },
       }
     end,
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',  opts = {} },
+  { 'folke/which-key.nvim', opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -87,8 +101,7 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>Gp', require('gitsigns').preview_hunk,
-          { buffer = bufnr, desc = '[G]it [P]review hunk' })
+        vim.keymap.set('n', '<leader>Gp', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[G]it [P]review hunk' })
 
         -- don't override the built-in and fugitive keymaps
         local gs = package.loaded.gitsigns
@@ -114,22 +127,22 @@ require('lazy').setup({
     },
   },
   {
-    "alexghergh/nvim-tmux-navigation",
-    event = "VeryLazy",
+    'alexghergh/nvim-tmux-navigation',
+    event = 'VeryLazy',
     config = function()
-      local nvim_tmux_nav = require("nvim-tmux-navigation")
-      nvim_tmux_nav.setup({
+      local nvim_tmux_nav = require 'nvim-tmux-navigation'
+      nvim_tmux_nav.setup {
         disable_when_zoomed = true,
         -- defaults to false
         keybindings = {
-          left = "<C-h>",
-          down = "<C-j>",
-          up = "<C-k>",
-          right = "<C-l>",
-          last_active = "<C-\\>",
-          next = "<C-Space>",
+          left = '<C-h>',
+          down = '<C-j>',
+          up = '<C-k>',
+          right = '<C-l>',
+          last_active = '<C-\\>',
+          next = '<C-Space>',
         },
-      })
+      }
     end,
   },
   {
@@ -142,19 +155,93 @@ require('lazy').setup({
   },
 
   {
-    -- Set lualine as statusline
-    'nvim-lualine/lualine.nvim',
-    -- See `:help lualine.txt`
-    opts = {
-      options = {
-        icons_enabled = false,
-        theme = 'catppuccin',
-        component_separators = '|',
-        section_separators = '',
-      },
-    },
-  },
+  "nvim-lualine/lualine.nvim",
+	dependencies = { "nvim-tree/nvim-web-devicons" },
+	event = "VeryLazy",
+	config = function()
+		-- Custom Lualine component to show attached language server
+		local clients_lsp = function()
+			local bufnr = vim.api.nvim_get_current_buf()
 
+			local clients = vim.lsp.get_clients()
+			if next(clients) == nil then
+				return ""
+			end
+
+			local c = {}
+			for _, client in pairs(clients) do
+				table.insert(c, client.name)
+			end
+			return " " .. table.concat(c, "|")
+		end
+
+		local custom_catppuccin = require("lualine.themes.catppuccin")
+
+		-- Custom colours
+		custom_catppuccin.normal.b.fg = "#cad3f5"
+		custom_catppuccin.insert.b.fg = "#cad3f5"
+		custom_catppuccin.visual.b.fg = "#cad3f5"
+		custom_catppuccin.replace.b.fg = "#cad3f5"
+		custom_catppuccin.command.b.fg = "#cad3f5"
+		custom_catppuccin.inactive.b.fg = "#cad3f5"
+
+		custom_catppuccin.normal.c.fg = "#6e738d"
+		custom_catppuccin.normal.c.bg = "#1e2030"
+
+		require("lualine").setup({
+			options = {
+				theme = custom_catppuccin,
+				component_separators = "",
+				section_separators = { left = "", right = "" },
+				disabled_filetypes = { "alpha", "Outline" },
+			},
+			sections = {
+				lualine_a = {
+					{ "mode", separator = { left = " ", right = "" }, icon = "" },
+				},
+				lualine_b = {
+					{
+						"filetype",
+						icon_only = true,
+						padding = { left = 1, right = 0 },
+					},
+					"filename",
+				},
+				lualine_c = {
+					{
+						"branch",
+						icon = "",
+					},
+					{
+						"diff",
+						symbols = { added = " ", modified = " ", removed = " " },
+						colored = false,
+					},
+				},
+				lualine_x = {
+					{
+						"diagnostics",
+						symbols = { error = " ", warn = " ", info = " ", hint = " " },
+						update_in_insert = true,
+					},
+				},
+				lualine_y = { clients_lsp },
+				lualine_z = {
+					{ "location", separator = { left = "", right = " " }, icon = "" },
+				},
+			},
+			inactive_sections = {
+				lualine_a = { "filename" },
+				lualine_b = {},
+				lualine_c = {},
+				lualine_x = {},
+				lualine_y = {},
+				lualine_z = { "location" },
+			},
+			extensions = { "toggleterm", "trouble" },
+		})
+  end,
+  },
   {
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
@@ -197,28 +284,30 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
   {
-    "ray-x/lsp_signature.nvim",
-    event = "VeryLazy",
+    'ray-x/lsp_signature.nvim',
+    event = 'VeryLazy',
     opts = {},
-    config = function(_, opts) require 'lsp_signature'.setup(opts) end,
+    config = function(_, opts)
+      require('lsp_signature').setup(opts)
+    end,
     on_attach = function(client, bufnr)
-      require "lsp_signature".on_attach({
+      require('lsp_signature').on_attach({
         bind = true, -- This is mandatory, otherwise border config won't get registered.
         handler_opts = {
-          border = "rounded"
-        }
+          border = 'rounded',
+        },
       }, bufnr)
     end,
   },
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
+    'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v3.x',
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-      "MunifTanjim/nui.nvim",
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+      'MunifTanjim/nui.nvim',
       -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-    }
+    },
   },
   -- {'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons'},
   --   {
