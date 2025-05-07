@@ -13,6 +13,7 @@
       ./main-user.nix
       ./steam.nix
       ./code-cursor.nix
+      ./libreoffice.nix
       inputs.home-manager.nixosModules.default
     ];
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
@@ -140,9 +141,6 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     lazygit
-    libreoffice-qt
-    hunspell
-    hunspellDicts.uk_UA
   ];
 
   fonts.packages = with pkgs; [
