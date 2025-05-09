@@ -58,7 +58,7 @@ bindsym $mod+Shift+f exec --no-startup-id "thunar"
 
 
 # kill focused window
-bindsym $mod+q kill
+bindsym $mod+Shift+q kill
 # bindsym $mod+p exec --no-startup-id "~/.config/rofi/powermenu/type-1/powermenu.sh"
 
 # start dmenu (a program launcher)
