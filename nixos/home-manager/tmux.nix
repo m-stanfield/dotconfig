@@ -17,6 +17,7 @@
         extraConfig = ''
 set -g @catppuccin_flavor 'mocha'
 
+set -s escape-time 0
 # ~/.tmux.conf
 
 # Options to make tmux more pleasant
