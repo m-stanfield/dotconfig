@@ -51,14 +51,14 @@ vim.keymap.set('v', '>', '>gv')
 
 -- [[ Neo-tree Keymaps ]]
 -- Toggle Neo-tree with <leader>e
-vim.keymap.set('n', '<leader>e', '<cmd>Neotree toggle<cr>', { desc = 'Toggle Neo-tree' })
+vim.keymap.set('n', '<leader>te', '<cmd>Neotree toggle<cr>', { desc = 'Toggle Neo-tree' })
 
 -- Reveal current file in Neo-tree with <leader>o
-vim.keymap.set('n', '<leader>o', '<cmd>Neotree reveal<cr>', { desc = 'Reveal file in Neo-tree' })
+vim.keymap.set('n', '<leader>to', '<cmd>Neotree reveal<cr>', { desc = 'Reveal file in Neo-tree' })
 
 -- Common file operations in Neo-tree
-vim.keymap.set('n', '<leader>nf', '<cmd>Neotree focus<cr>', { desc = 'Focus Neo-tree window' })
-vim.keymap.set('n', '<leader>nr', '<cmd>Neotree refresh<cr>', { desc = 'Refresh Neo-tree' })
+vim.keymap.set('n', '<leader>tf', '<cmd>Neotree focus<cr>', { desc = 'Focus Neo-tree window' })
+vim.keymap.set('n', '<leader>tr', '<cmd>Neotree refresh<cr>', { desc = 'Refresh Neo-tree' })
 
 -- File manipulations
 vim.keymap.set('n', '<leader>fn', '<cmd>enew<cr>', { desc = 'New File' })
