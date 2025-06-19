@@ -116,6 +116,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     telegram-desktop
+    qdirstat
     qalculate-qt
     kalker
     speedcrunch
