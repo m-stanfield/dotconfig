@@ -14,6 +14,7 @@
       ./steam.nix
       ./code-cursor.nix
       ./libreoffice.nix
+      ./docker.nix
       inputs.home-manager.nixosModules.default
     ];
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
@@ -28,7 +29,6 @@
 
   main-user.enable = true;
   main-user.userName = "matt";
-  main-user.autoLogin = true;
 
   #services.ssh-agent.enable = true;
   programs.ssh.startAgent = true;
