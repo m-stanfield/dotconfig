@@ -119,6 +119,7 @@
       desmume
     ]))
     prusa-slicer
+    sqlitebrowser
     vlc
     telegram-desktop
     qdirstat
