@@ -121,6 +121,7 @@
     prusa-slicer
     p7zip
     sqlitebrowser
+    calibre
     vlc
     telegram-desktop
     qdirstat
