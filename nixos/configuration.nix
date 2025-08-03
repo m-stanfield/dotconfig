@@ -119,6 +119,7 @@
       desmume
     ]))
     prusa-slicer
+    p7zip
     sqlitebrowser
     vlc
     telegram-desktop
