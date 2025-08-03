@@ -118,6 +118,7 @@
     (retroarch.withCores (cores: with cores; [
       desmume
     ]))
+    prusa-slicer
     vlc
     telegram-desktop
     qdirstat
