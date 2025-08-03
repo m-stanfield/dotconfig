@@ -115,6 +115,9 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    (retroarch.withCores (cores: with cores; [
+      desmume
+    ]))
     vlc
     telegram-desktop
     qdirstat
