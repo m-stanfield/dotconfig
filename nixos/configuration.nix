@@ -70,7 +70,6 @@
 
   };
 
-
   # Configure keymap in X11
   
   services = {
@@ -115,9 +114,11 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    filezilla
     (retroarch.withCores (cores: with cores; [
       desmume
     ]))
+    file-roller
     prusa-slicer
     p7zip
     sqlitebrowser
@@ -197,7 +198,7 @@
   };
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 3000 ];
+  networking.firewall.allowedTCPPorts = [ 3000 8080 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
