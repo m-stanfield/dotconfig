@@ -16,8 +16,13 @@
         # devShells.default describes the default shell with C++, cmake, boost,
         # and catch2
         devShells.default = pkgs.mkShell {
+          shellHook = ''
+            export VSCODE_LLDB_PATH=${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb
+          '';
           packages = with pkgs; [
-            # C++ Compiler is already part of stdenv
+vscode-extensions.vadimcn.vscode-lldb
+            ldc
+            gcc
             boost
             clang
             catch2
