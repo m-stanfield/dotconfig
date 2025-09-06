@@ -114,6 +114,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    starship
     slack
     filezilla
     (retroarch.withCores (cores: with cores; [
