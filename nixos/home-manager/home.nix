@@ -155,7 +155,7 @@
         add_newline = true;
         command_timeout = 500;
         continuation_prompt = "[∙](bright-black) ";
-        format = "$git_branch$nix$nix_shell$git_state$git_status$username$directory$character";
+        format = "$git_branch$git_state$git_status$nix$nix_shell$username$directory$character";
         right_format = "";
         scan_timeout = 30;
         
