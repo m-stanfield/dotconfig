@@ -9,3 +9,4 @@ config/nvim/lua/custom/plugins/copilot.lua
 hardware-configuration.nix
 .venv
 .direnv
+build
