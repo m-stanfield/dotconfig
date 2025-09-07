@@ -42,6 +42,7 @@ return {
       -- online, please don't ask me how to install them :)
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
+        'clangd',
         'delve',
         'codelldb',
         'debugpy',
@@ -139,7 +140,7 @@ return {
         name = 'Launch file',
         cwd = '${workspaceFolder}', --python is executed from this directory
         stopAtEntry = true,
-        program = '${file}', -- This configuration will launch the current file if used.
+        program = '${file}',        -- This configuration will launch the current file if used.
         justMyCode = false,
         pythonPath = function()
           -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
@@ -213,7 +214,8 @@ return {
 
     -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
     vim.keymap.set('n', '<F7>', dapui.toggle, { desc = 'Debug: See last session result.' })
-    vim.keymap.set('n', '<leader>k', '<Cmd>lua require("dapui").eval()<CR>', { desc = 'Debug: Hover debug values', noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>k', '<Cmd>lua require("dapui").eval()<CR>',
+      { desc = 'Debug: Hover debug values', noremap = true, silent = true })
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close

@@ -10,3 +10,4 @@ hardware-configuration.nix
 .venv
 .direnv
 build
+nixos/examples/nixcpp/.cache/clangd/index

@@ -31,7 +31,7 @@
   main-user.userName = "matt";
 
   #services.ssh-agent.enable = true;
-  programs.ssh.startAgent = true;
+  # programs.ssh.startAgent = true;
 
 
 
