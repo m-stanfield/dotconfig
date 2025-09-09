@@ -14,11 +14,8 @@ return {
     -- Creates a beautiful debugger UI
     'rcarriga/nvim-dap-ui',
     'mfussenegger/nvim-dap-python',
+    'julianolf/nvim-dap-lldb',
     'nvim-neotest/nvim-nio',
-
-    -- Installs the debug adapters for you
-    'williamboman/mason.nvim',
-    'jay-babu/mason-nvim-dap.nvim',
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
@@ -28,26 +25,8 @@ return {
     local dap = require 'dap'
     local dapui = require 'dapui'
     require('dap-python').setup(vim.env.HOME .. '/.virtualenvs/debugpy/bin/python')
-    require('mason-nvim-dap').setup {
-      -- Makes a best effort to setup the various debuggers with
-      -- reasonable debug configurations
-      automatic_setup = true,
-      automatic_installation = true,
-
-      -- You can provide additional configuration to the handlers,
-      -- see mason-nvim-dap README for more information
-      handlers = {},
-
-      -- You'll need to check that you have the required things installed
-      -- online, please don't ask me how to install them :)
-      ensure_installed = {
-        -- Update this to ensure that you have the debuggers for the langs you want
-        'clangd',
-        'delve',
-        'codelldb',
-        'debugpy',
-      },
-    }
+    -- define path based off of environment variable VSCODE_LLDB_PATH, if it exists otherwise use a sensible default
+    local lldb_path = os.getenv 'VSCODE_LLDB_PATH' or '/usr/bin/codelldb'
 
     -- Basic debugging keymaps, feel free to change to your liking!
     vim.keymap.set('n', '<leader>n', dap.step_over, { desc = 'Debug: Step Over' })
@@ -64,11 +43,6 @@ return {
       dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
     end, { desc = 'Debug: Set Breakpoint' })
 
-    dap.adapters.cppdbg = {
-      id = 'cppdbg',
-      type = 'executable',
-      command = vim.env.HOME .. '/.cpptools/extension/debugAdapters/bin/OpenDebugAD7',
-    }
     dap.adapters.delve = {
       type = 'server',
       host = '127.0.0.1',
@@ -88,42 +62,36 @@ return {
         outputMode = 'remote',
       },
     }
+
+    dap.adapters.codelldb = {
+      type = 'server',
+      port = '${port}',
+      executable = {
+        command = lldb_path, -- or if not in $PATH: "/absolute/path/to/codelldb"
+        args = { '--port', '${port}' },
+      },
+    }
+
     dap.configurations.cpp = {
       {
         name = 'Launch file',
-        type = 'cppdbg',
+        type = 'codelldb',
         request = 'launch',
-        program = function()
-          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-        end,
         cwd = '${workspaceFolder}',
-        setupCommands = {
-          {
-            text = '-enable-pretty-printing',
-            description = 'enable pretty printing',
-            ignoreFailures = false,
-          },
-        },
-        stopAtEntry = true,
-      },
-      {
-        name = 'Attach to gdbserver :1234',
-        type = 'cppdbg',
-        request = 'launch',
-        MIMode = 'gdb',
-        miDebuggerServerAddress = 'localhost:1234',
-        miDebuggerPath = '/usr/bin/gdb',
-        setupCommands = {
-          {
-            text = '-enable-pretty-printing',
-            description = 'enable pretty printing',
-            ignoreFailures = false,
-          },
-        },
-        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+
         program = function()
-          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+          -- Build with debug symbols
+          local out = vim.fn.system { 'cmake', '--build', 'build' }
+          -- Check for errors
+          if vim.v.shell_error ~= 0 then
+            vim.notify(out, vim.log.levels.ERROR)
+            return nil
+          end
+          -- Return path to the debuggable program
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/build/src/', 'file')
         end,
+        terminal = 'console',
       },
     }
     dap.adapters.python = {
@@ -140,7 +108,7 @@ return {
         name = 'Launch file',
         cwd = '${workspaceFolder}', --python is executed from this directory
         stopAtEntry = true,
-        program = '${file}',        -- This configuration will launch the current file if used.
+        program = '${file}', -- This configuration will launch the current file if used.
         justMyCode = false,
         pythonPath = function()
           -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
@@ -214,8 +182,7 @@ return {
 
     -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
     vim.keymap.set('n', '<F7>', dapui.toggle, { desc = 'Debug: See last session result.' })
-    vim.keymap.set('n', '<leader>k', '<Cmd>lua require("dapui").eval()<CR>',
-      { desc = 'Debug: Hover debug values', noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>k', '<Cmd>lua require("dapui").eval()<CR>', { desc = 'Debug: Hover debug values', noremap = true, silent = true })
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close

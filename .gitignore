@@ -11,3 +11,5 @@ hardware-configuration.nix
 .direnv
 build
 nixos/examples/nixcpp/.cache/clangd/index
+nixos/examples/nixcpp/CMakeFiles
+nixos/examples/nixcpp/CMakeCache.txt

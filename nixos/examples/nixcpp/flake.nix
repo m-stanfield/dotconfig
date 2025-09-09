@@ -1,34 +1,68 @@
 {
-  description = "C++ Development with Nix in 2023";
+  description = "A template for Nix based C++ project setup.";
+
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # Pointing to the current stable release of nixpkgs. You can
+    # customize this to point to an older version or unstable if you
+    # like everything shining.
+    #
+    # E.g.
+    #
+    # nixpkgs.url = "github:NixOS/nixpkgs/unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/22.11";
+
+    utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      # This is the list of architectures that work with this project
-      systems = [
-        "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin"
-      ];
-      perSystem = { config, self', inputs', pkgs, system, ... }: {
+  outputs = { self, nixpkgs, ... }@inputs: inputs.utils.lib.eachSystem [
+    # Add the system/architecture you would like to support here. Note that not
+    # all packages in the official nixpkgs support all platforms.
+    "x86_64-linux" "i686-linux" "aarch64-linux" "x86_64-darwin"
+  ] (system: let
+    pkgs = import nixpkgs {
+      inherit system;
 
-        # devShells.default describes the default shell with C++, cmake, boost,
-        # and catch2
-        devShells.default = pkgs.mkShell {
-          shellHook = ''
-            export VSCODE_LLDB_PATH=${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb
-          '';
-          packages = with pkgs; [
-vscode-extensions.vadimcn.vscode-lldb
-            ldc
-            gcc
-            boost
-            clang
-            catch2
-            cmake
-          ];
-        };
-      };
+      # Add overlays here if you need to override the nixpkgs
+      # official packages.
+      overlays = [];
+      
+      # Uncomment this if you need unfree software (e.g. cuda) for
+      # your project.
+      #
+      # config.allowUnfree = true;
     };
+  in {
+    devShells.default = pkgs.mkShell rec {
+      # Update the name to something that suites your project.
+      name = "my-c++-project";
+
+
+      packages = with pkgs; [
+        # Development Tools
+        clang
+        clang-tools
+        cmake
+        vscode-extensions.vadimcn.vscode-lldb
+
+        # Development time dependencies
+        gtest
+
+        # Build time and Run time dependencies
+        spdlog
+        abseil-cpp
+      ];
+
+      # Setting up the environment variables you need during
+      # development.
+      shellHook = let
+        icon = "f121";
+      in ''
+        echo "entering devshell for ${name}"
+        export VSCODE_LLDB_PATH=${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb
+      '';
+    };
+
+    packages.default = pkgs.callPackage ./default.nix {};
+  });
 }

@@ -29,6 +29,9 @@
 
   main-user.enable = true;
   main-user.userName = "matt";
+  programs.nix-ld = {
+    enable = true;
+  };
 
   #services.ssh-agent.enable = true;
   # programs.ssh.startAgent = true;
