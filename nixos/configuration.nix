@@ -15,7 +15,6 @@
       ./code-cursor.nix
       ./libreoffice.nix
       ./docker.nix
-      inputs.home-manager.nixosModules.default
     ];
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
 
@@ -28,7 +27,7 @@
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   main-user.enable = true;
-  main-user.userName = "matt";
+  main-user.userName = "nixos";
   programs.nix-ld = {
     enable = true;
   };
@@ -176,7 +175,7 @@
     backupFileExtension = "backup";
     useGlobalPkgs = true;
     users = {
-      "matt" = import ./home-manager/home.nix;
+      "nixos" = import ./home-manager/home.nix;
     };
   };
 

@@ -9,8 +9,8 @@
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "matt";
-  home.homeDirectory = "/home/matt";
+  home.username = "nixos";
+  home.homeDirectory = "/home/nixos";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -111,7 +111,7 @@
   programs.git = {
     enable = true;
     userName = "m-stanfield";
-    userEmail = "mattstanfield52@gmail.com";
+    userEmail = "nixosstanfield52@gmail.com";
   };
 
 
@@ -352,7 +352,7 @@
           "Downloads" = " ";
           "Music" = " ";
           "Pictures" = " ";
-          # Keep in mind that the order matters. For example:;
+          # Keep in mind that the order nixosers. For example:;
           # "Important Documents" = "  ";
           # will not be replaced, because "Documents" was already substituted before.;
           # So either put "Important Documents" before "Documents" or use the substituted version:;

@@ -19,7 +19,7 @@ in
   config = lib.mkIf cfg.enable {
   users.users.${cfg.userName} = {
     isNormalUser = true;
-    initialPassword = "matt";
+    initialPassword = "nixos";
     description = cfg.userName;
     extraGroups = [ "networkmanager" "wheel" ];
   };
