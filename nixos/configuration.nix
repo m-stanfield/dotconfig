@@ -117,6 +117,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    godot
     starship
     slack
     filezilla
@@ -133,6 +134,12 @@
     qdirstat
     qalculate-qt
     kalker
+    (lutris.override {
+      extraLibraries = pkgs: with pkgs; [
+        libadwaita
+        gtk4
+      ];
+    })
     speedcrunch
     numbat
     pinta    
