@@ -18,7 +18,11 @@
       inputs.home-manager.nixosModules.default
     ];
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
-
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+    nvidiaPatches = true;
+  };
   # enable unfree software
   nixpkgs.config = {
     allowUnfree = true;
@@ -98,6 +102,12 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
+  services.xserver = {
+    enable = true;
+    desktopManager.gnome.enable = true;
+    displayManager.sddm.enable = true;
+    displayManager.sddm.wayland.enable = true;
+  };
   # services.xserver.libinput.enable = true;
 
 
@@ -143,6 +153,7 @@
     speedcrunch
     numbat
     pinta    
+    wofi
     xivlauncher
     glances
     obsidian
