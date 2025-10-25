@@ -21,7 +21,6 @@
   programs.hyprland = {
     enable = true;
     withUWSM = true;
-    nvidiaPatches = true;
   };
   # enable unfree software
   nixpkgs.config = {
