@@ -2,6 +2,10 @@
 
 {
 
+  programs.waybar = {
+    enable = true;
+  };
+
   wayland.windowManager.hyprland.enable = true;
   wayland.windowManager.hyprland.plugins =  [
    pkgs.hyprlandPlugins.hy3
@@ -10,6 +14,9 @@
     
 
   wayland.windowManager.hyprland.settings = {
+     exec-once = [
+      "waybar"
+     ];
      "$mod" = "SUPER";
      "$left" = "j";
      "$down" = "k";
