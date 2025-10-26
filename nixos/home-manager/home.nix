@@ -4,8 +4,8 @@
   imports = [
     ./tmux.nix
     ./neovim.nix
-    ./i3.nix
     ./synology.nix
+    ./hyprland.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -20,6 +20,9 @@
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "24.05"; # Please read the comment before changing.
+
+
+
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
