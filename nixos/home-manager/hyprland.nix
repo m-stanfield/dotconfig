@@ -2,18 +2,56 @@
 
 {
 
+  home.pointerCursor = {
+    gtk.enable = true;
+    # x11.enable = true;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Classic";
+    size = 16;
+  };
+
+  gtk = {
+    enable = true;
+
+    theme = {
+      package = pkgs.flat-remix-gtk;
+      name = "Flat-Remix-GTK-Grey-Darkest";
+    };
+
+    iconTheme = {
+      package = pkgs.adwaita-icon-theme;
+      name = "Adwaita";
+    };
+
+    font = {
+      name = "Sans";
+      size = 11;
+    };
+  };
+
+
   programs.waybar = {
     enable = true;
   };
 
-  wayland.windowManager.hyprland.enable = true;
-  wayland.windowManager.hyprland.plugins =  [
-   pkgs.hyprlandPlugins.hy3
-  ];
+
+  wayland.windowManager.hyprland = {
+    enable = true;
+
 
     
 
-  wayland.windowManager.hyprland.settings = {
+    settings = {
+
+      cursor = {
+        sync_gsettings_theme = true;
+
+        no_hardware_cursors = 1; # change to 1 if want to disable
+        inactive_timeout = 5;
+        enable_hyprcursor = false;
+        warp_on_change_workspace = 2;
+        no_warps = true;
+      };
      exec-once = [
       "waybar"
      ];
@@ -92,5 +130,6 @@
            )
            9)
        );
-   };
+     };
+    };
 }
