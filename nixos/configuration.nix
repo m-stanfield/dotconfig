@@ -128,6 +128,8 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     psmisc
+    nvidia-utils
+    egl-wayland
     godot
     starship
     slack
