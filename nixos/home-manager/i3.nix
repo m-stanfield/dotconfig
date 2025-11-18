@@ -3,7 +3,7 @@
   home.packages = with pkgs; [
     i3status-rust
     i3lock
-    i3-gaps
+    i3
 
   ];
   home.activation.linkI3Config = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
