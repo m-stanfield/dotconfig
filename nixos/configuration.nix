@@ -130,6 +130,7 @@
     sqlitebrowser
     calibre
     vlc
+    audacity
     telegram-desktop
     qdirstat
     qalculate-qt
@@ -143,6 +144,7 @@
     speedcrunch
     numbat
     pinta    
+    ffmpeg
     xivlauncher
     glances
     obsidian
