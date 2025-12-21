@@ -34,6 +34,15 @@
           inputs.home-manager.nixosModules.default
         ];
       };
+      roglaptop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./configuration.nix
+          ./hosts/roglaptop/configuration.nix
+          inputs.home-manager.nixosModules.default
+        ];
+      };
     };
   };
 }
