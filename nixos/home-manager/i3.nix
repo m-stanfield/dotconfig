@@ -1,4 +1,9 @@
 { config, lib, pkgs,home, ... }:
+let 
+    i3ConfigFile =  "${config.home.homeDirectory}/code/dotconfig/config/i3";
+    i3StatusRustConfigFile =  "${config.home.homeDirectory}/code/dotconfig/config/i3status-rust";
+    i3StatusConfigFile =  "${config.home.homeDirectory}/code/dotconfig/config/i3status";
+in
 {
   home.packages = with pkgs; [
     i3status-rust
@@ -6,17 +11,15 @@
     i3
 
   ];
-  home.activation.linkI3Config = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    ln -sfn "$HOME/code/dotconfig/config/i3/config" "$HOME/.config/i3/config"
-  '';
-
-  home.activation.linkI3StatusRustConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    ln -sfn "$HOME/code/dotconfig/config/i3status-rust/config.toml" "$HOME/.config/i3status-rust/config.toml"
-  '';
-
-  home.activation.linkI3StatusConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    ln -sfn "$HOME/code/dotconfig/config/i3status/config" "$HOME/.config/i3status/config"
-  '';
+  home.file."${config.home.homeDirectory}/.config/i3" = {
+  	source = config.lib.file.mkOutOfStoreSymlink i3ConfigFile;
+  };
+  home.file."${config.home.homeDirectory}/.config/i3status-rust" = {
+  	source = config.lib.file.mkOutOfStoreSymlink i3StatusRustConfigFile;
+  };
+  home.file."${config.home.homeDirectory}/.config/i3status" = {
+  	source = config.lib.file.mkOutOfStoreSymlink i3StatusConfigFile;
+  };
 
 
 }
