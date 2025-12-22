@@ -7,14 +7,14 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./virtual-box.nix
-      ./obs.nix
+#      ./virtual-box.nix
+#      ./obs.nix
       ./autorandr.nix
       ./main-user.nix
-      ./steam.nix
-      ./code-cursor.nix
-      ./libreoffice.nix
-      ./docker.nix
+#      ./steam.nix
+      #./code-cursor.nix
+      #./libreoffice.nix
+      #./docker.nix
       inputs.home-manager.nixosModules.default
     ];
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
@@ -117,35 +117,35 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    godot
+    #godot
     starship
-    slack
-    filezilla
-    (retroarch.withCores (cores: with cores; [
-      desmume
-    ]))
+    #slack
+    #filezilla
+    #(retroarch.withCores (cores: with cores; [
+    #  desmume
+    #]))
     file-roller
-    prusa-slicer
+    #prusa-slicer
     p7zip
     sqlitebrowser
-    calibre
+    #calibre
     vlc
-    audacity
-    telegram-desktop
+    #audacity
+    #telegram-desktop
     qdirstat
     qalculate-qt
-    kalker
-    (lutris.override {
-      extraLibraries = pkgs: with pkgs; [
-        libadwaita
-        gtk4
-      ];
-    })
-    speedcrunch
-    numbat
-    pinta    
+    #kalker
+    #(lutris.override {
+  #    extraLibraries = pkgs: with pkgs; [
+  #      libadwaita
+  #      gtk4
+  #    ];
+  #  })
+  #  speedcrunch
+  #  numbat
+  #  pinta    
     ffmpeg
-    xivlauncher
+  #  xivlauncher
     glances
     obsidian
     pulseaudio
@@ -154,17 +154,17 @@
     systemctl-tui
     feh
     playerctl 
-    unityhub
-    google-chrome
-    vscode
-    nvtopPackages.nvidia
-    spotify
-    discord
+  #  unityhub
+  #  google-chrome
+    #vscode
+    #nvtopPackages.nvidia
+    #spotify
+    #discord
     stow
     cloc
     htop
     home-manager
-    # tmux
+    tmux
     kitty
     catppuccin
     ripgrep
