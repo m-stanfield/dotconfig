@@ -11,10 +11,10 @@
 #      ./obs.nix
       ./autorandr.nix
       ./main-user.nix
-#      ./steam.nix
+      ./steam.nix
       #./code-cursor.nix
-      #./libreoffice.nix
-      #./docker.nix
+      ./libreoffice.nix
+      ./docker.nix
       inputs.home-manager.nixosModules.default
     ];
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
@@ -120,7 +120,7 @@
     #godot
     starship
     #slack
-    #filezilla
+    filezilla
     #(retroarch.withCores (cores: with cores; [
     #  desmume
     #]))
@@ -131,7 +131,7 @@
     #calibre
     vlc
     #audacity
-    #telegram-desktop
+    telegram-desktop
     qdirstat
     qalculate-qt
     #kalker
@@ -155,11 +155,11 @@
     feh
     playerctl 
   #  unityhub
-  #  google-chrome
-    #vscode
+    google-chrome
+    vscode
     #nvtopPackages.nvidia
-    #spotify
-    #discord
+    spotify
+    discord
     stow
     cloc
     htop
