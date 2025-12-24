@@ -38,6 +38,7 @@
     stylua
     #eslint
     delve
+    nixd
 
   # Debugging tools
 
