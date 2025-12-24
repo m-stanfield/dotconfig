@@ -15,6 +15,7 @@
   outputs = { self, nixpkgs, ... }@inputs:  let
     inherit (self) outputs;
   in {
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -42,7 +43,6 @@
           ./hosts/roglaptop/configuration.nix
           inputs.home-manager.nixosModules.default
         ];
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
       };
     };
   };
