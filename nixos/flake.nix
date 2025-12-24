@@ -42,6 +42,7 @@
           ./hosts/roglaptop/configuration.nix
           inputs.home-manager.nixosModules.default
         ];
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
       };
     };
   };
