@@ -144,6 +144,10 @@
   };
   programs.bash = {
     enable = true;
+    shellAliases = {
+      nvimswap="cd ~/.local/state/nvim/swap";
+      download="wget --directory-prefix=$HOME/Downloads";
+    };
     initExtra = ''
       eval "$(starship init bash)"
     '';
