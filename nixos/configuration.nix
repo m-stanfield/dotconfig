@@ -2,30 +2,38 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-#      ./virtual-box.nix
-#      ./obs.nix
-      ./autorandr.nix
-      ./main-user.nix
-      ./steam.nix
-      #./code-cursor.nix
-      ./libreoffice.nix
-      ./docker.nix
-      inputs.home-manager.nixosModules.default
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    #      ./virtual-box.nix
+    #      ./obs.nix
+    ./autorandr.nix
+    ./main-user.nix
+    ./steam.nix
+    #./code-cursor.nix
+    ./libreoffice.nix
+    ./docker.nix
+    inputs.home-manager.nixosModules.default
+  ];
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
 
   # enable unfree software
   nixpkgs.config = {
     allowUnfree = true;
   };
-  
+
   # Enabling features
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   main-user.enable = true;
   main-user.userName = "matt";
@@ -35,8 +43,6 @@
 
   #services.ssh-agent.enable = true;
   # programs.ssh.startAgent = true;
-
-
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -66,15 +72,13 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-
-
   services.gnome.gnome-keyring = {
     enable = true;
 
   };
 
   # Configure keymap in X11
-  
+
   services = {
     blueman.enable = true;
   };
@@ -99,8 +103,6 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
-
-
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
@@ -136,16 +138,16 @@
     qalculate-qt
     #kalker
     #(lutris.override {
-  #    extraLibraries = pkgs: with pkgs; [
-  #      libadwaita
-  #      gtk4
-  #    ];
-  #  })
-  #  speedcrunch
-  #  numbat
-  #  pinta    
+    #    extraLibraries = pkgs: with pkgs; [
+    #      libadwaita
+    #      gtk4
+    #    ];
+    #  })
+    #  speedcrunch
+    #  numbat
+    #  pinta
     ffmpeg
-  #  xivlauncher
+    #  xivlauncher
     glances
     obsidian
     pulseaudio
@@ -153,8 +155,8 @@
     xclip
     systemctl-tui
     feh
-    playerctl 
-  #  unityhub
+    playerctl
+    #  unityhub
     google-chrome
     vscode
     #nvtopPackages.nvidia
@@ -181,7 +183,7 @@
   ];
 
   home-manager = {
-    extraSpecialArgs = {inherit inputs; };
+    extraSpecialArgs = { inherit inputs; };
     backupFileExtension = "backup";
     useGlobalPkgs = true;
     users = {
@@ -202,7 +204,7 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    ports = [22];
+    ports = [ 22 ];
     settings = {
       PasswordAuthentication = true;
       AllowUsers = null;
@@ -212,7 +214,10 @@
   };
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 3000 8080 ];
+  networking.firewall.allowedTCPPorts = [
+    3000
+    8080
+  ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;

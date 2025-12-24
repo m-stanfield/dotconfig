@@ -12,38 +12,41 @@
     };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:  let
-    inherit (self) outputs;
-  in {
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
-    nixosConfigurations = {
-      desktop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          ./hosts/desktop/configuration.nix
-          ./configuration.nix
-          inputs.home-manager.nixosModules.default
-        ];
-      };
-      laptop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          ./configuration.nix
-          ./hosts/laptop/configuration.nix
-          inputs.home-manager.nixosModules.default
-        ];
-      };
-      roglaptop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          ./configuration.nix
-          ./hosts/roglaptop/configuration.nix
-          inputs.home-manager.nixosModules.default
-        ];
+  outputs =
+    { self, nixpkgs, ... }@inputs:
+    let
+      inherit (self) outputs;
+    in
+    {
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
+      nixosConfigurations = {
+        desktop = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs outputs; };
+          modules = [
+            ./hosts/desktop/configuration.nix
+            ./configuration.nix
+            inputs.home-manager.nixosModules.default
+          ];
+        };
+        laptop = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs outputs; };
+          modules = [
+            ./configuration.nix
+            ./hosts/laptop/configuration.nix
+            inputs.home-manager.nixosModules.default
+          ];
+        };
+        roglaptop = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs outputs; };
+          modules = [
+            ./configuration.nix
+            ./hosts/roglaptop/configuration.nix
+            inputs.home-manager.nixosModules.default
+          ];
+        };
       };
     };
-  };
 }
