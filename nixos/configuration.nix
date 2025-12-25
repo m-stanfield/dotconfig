@@ -22,6 +22,13 @@
     ./docker.nix
     inputs.home-manager.nixosModules.default
   ];
+  services.printing.enable = true;
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
 
   # enable unfree software
