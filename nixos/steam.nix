@@ -1,9 +1,14 @@
-
-{ config, pkgs, inputs, programs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  programs,
+  ...
+}:
 
 {
-programs.steam = {
-	enable = true;
-	};
-  
+  programs.steam = {
+    enable = true;
+  };
+
 }

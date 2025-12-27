@@ -1,6 +1,11 @@
-{ lib, config, pkgs, ...}:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
-let 
+let
   cfg = config.main-user;
 in
 {
@@ -17,17 +22,20 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-  users.users.${cfg.userName} = {
-    isNormalUser = true;
-    initialPassword = "matt";
-    description = cfg.userName;
-    extraGroups = [ "networkmanager" "wheel" ];
-  };
-  # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin = {
-    enable = cfg.autoLogin;
-    user = cfg.userName;
-  };
+    users.users.${cfg.userName} = {
+      isNormalUser = true;
+      initialPassword = "matt";
+      description = cfg.userName;
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+      ];
+    };
+    # Enable automatic login for the user.
+    services.xserver.displayManager.autoLogin = {
+      enable = cfg.autoLogin;
+      user = cfg.userName;
+    };
 
   };
 }

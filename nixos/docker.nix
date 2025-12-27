@@ -1,5 +1,5 @@
 { config, pkgs, ... }:
 {
-   virtualisation.docker.enable = true;
-   users.users.matt.extraGroups = [ "docker" ];
+  virtualisation.docker.enable = true;
+  users.users.matt.extraGroups = [ "docker" ];
 }

@@ -69,6 +69,7 @@ local servers = {
   clangd = {},
   gopls = {},
   pyright = {},
+  nixd = {},
   -- rust_analyzer = {},
   html = { filetypes = { 'html', 'twig', 'hbs', 'tmpl' } },
   -- ruff = {},
