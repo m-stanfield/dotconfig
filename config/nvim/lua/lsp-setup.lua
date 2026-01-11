@@ -1,6 +1,7 @@
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(ev)
+  bufnr = ev.buf
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
@@ -91,16 +92,21 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 for server_name, opts in pairs(servers) do
+  -- print server name
+  print('Setting up LSP server: ' .. server_name)
+
   opts = vim.tbl_deep_extend('force', {
-    on_attach = on_attach,
     capabilities = capabilities,
-  }, opts or {})
-  vim.lsp.config(server_name, {
-    capabilities = capabilities,
-    on_attach = on_attach,
     settings = (servers[server_name] or {}).settings,
     filetypes = (servers[server_name] or {}).filetypes,
-  })
+  }, opts or {})
+
+  vim.lsp.config(server_name, opts)
+  vim.lsp.enable(server_name)
 end
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = on_attach,
+})
 
 -- vim: ts=2 sts=2 sw=2 et
