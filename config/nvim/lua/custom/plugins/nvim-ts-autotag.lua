@@ -3,14 +3,13 @@
 --
 -- See the kickstart.nvim README for more information
 return {
-  "windwp/nvim-ts-autotag",
+  'windwp/nvim-ts-autotag',
 
   config = function()
-    require 'nvim-treesitter.configs'.setup {
+    require('nvim-treesitter.config').setup {
       autotag = {
         enable = true,
-      }
+      },
     }
   end,
-
 }

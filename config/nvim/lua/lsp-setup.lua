@@ -95,12 +95,12 @@ for server_name, opts in pairs(servers) do
     on_attach = on_attach,
     capabilities = capabilities,
   }, opts or {})
-  require('lspconfig')[server_name].setup {
+  vim.lsp.config(server_name, {
     capabilities = capabilities,
     on_attach = on_attach,
     settings = (servers[server_name] or {}).settings,
     filetypes = (servers[server_name] or {}).filetypes,
-  }
+  })
 end
 
 -- vim: ts=2 sts=2 sw=2 et
