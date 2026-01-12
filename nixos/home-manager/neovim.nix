@@ -21,6 +21,7 @@
    ];
 
    extraPackages = with pkgs; [
+    lua-language-server
     xclip
     tree-sitter
     typescript-language-server
