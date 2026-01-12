@@ -23,6 +23,7 @@
    extraPackages = with pkgs; [
     xclip
     tree-sitter
+    typescript-language-server
     clang
     llvm
     python3

@@ -8,7 +8,6 @@ local on_attach = function(ev)
   --
   -- In this case, we create a function that lets us more easily define mappings specific
   -- for LSP related items. It sets the mode, buffer and description for us each time.
-  vim.notify('LSP Attached', vim.log.levels.INFO, { title = 'LSP' })
   require('lsp_signature').on_attach(_, bufnr)
   local nmap = function(keys, func, desc)
     if desc then
@@ -72,6 +71,7 @@ local servers = {
   pyright = {},
   -- rust_analyzer = {},
   html = { filetypes = { 'html', 'twig', 'hbs', 'tmpl' } },
+  ts_ls = {},
   -- ruff = {},
 
   lua_ls = {
@@ -92,6 +92,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 for server_name, opts in pairs(servers) do
+  print('Configuring LSP server: ' .. server_name)
   opts = vim.tbl_deep_extend('force', {
     capabilities = capabilities,
     settings = (servers[server_name] or {}).settings,
@@ -102,7 +103,6 @@ for server_name, opts in pairs(servers) do
   vim.lsp.enable(server_name)
 end
 vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = on_attach,
 })
 
