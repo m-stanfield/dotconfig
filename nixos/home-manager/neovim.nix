@@ -11,20 +11,23 @@
     ln -sfn "$HOME/code/dotconfig/config/nvim" "$HOME/.config/nvim"
   '';
 
-  programs.neovim = {
-    vimAlias = true;
-    enable = true;
-    # package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
-    extraLuaPackages = luaPkgs: with luaPkgs; [ luarocks ];
+ programs.neovim = {
+   vimAlias = true;
+   enable = true;
+       # package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+   extraLuaPackages = luaPkgs: with luaPkgs; [ luarocks];
+   plugins = with pkgs.vimPlugins; [
+    nvim-treesitter
+   ];
 
-    extraPackages = with pkgs; [
-      xclip
-      vimPlugins.nvim-treesitter
-      clang
-      llvm
-      python3
-      python3Packages.pynvim # Required for Python Neovim support
-      python3Packages.debugpy
+   extraPackages = with pkgs; [
+    xclip
+    tree-sitter
+    clang
+    llvm
+    python3
+    python3Packages.pynvim  # Required for Python Neovim support
+    python3Packages.debugpy
 
       # Go
       go

@@ -272,11 +272,6 @@ require('lazy').setup({
   },
 
   {
-    'nvim-treesitter/nvim-treesitter',
-    lazy = false,
-    build = ':TSUpdate',
-  },
-  {
     'ray-x/lsp_signature.nvim',
     event = 'VeryLazy',
     opts = {},
