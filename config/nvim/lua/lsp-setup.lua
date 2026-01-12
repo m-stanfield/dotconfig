@@ -92,9 +92,6 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 for server_name, opts in pairs(servers) do
-  -- print server name
-  print('Setting up LSP server: ' .. server_name)
-
   opts = vim.tbl_deep_extend('force', {
     capabilities = capabilities,
     settings = (servers[server_name] or {}).settings,

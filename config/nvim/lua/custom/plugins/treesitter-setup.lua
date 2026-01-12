@@ -44,6 +44,7 @@ return {
         vim.api.nvim_create_autocmd('FileType', {
           pattern = parser,
           callback = function()
+            vim.notify('Loading treesitter for ' .. parser, vim.log.levels.INFO)
             vim.treesitter.start()
           end,
         })
