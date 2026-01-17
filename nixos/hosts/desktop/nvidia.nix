@@ -14,6 +14,10 @@
       "unredir-if-possible" = false;
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    nvtopPackages.nvidia
+  ];
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
