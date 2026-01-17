@@ -158,14 +158,12 @@
     unityhub
     google-chrome
     vscode
-    nvtopPackages.nvidia
     spotify
     discord
     stow
     cloc
     htop
     home-manager
-    # tmux
     kitty
     catppuccin
     ripgrep

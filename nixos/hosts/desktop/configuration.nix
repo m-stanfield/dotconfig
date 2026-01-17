@@ -8,7 +8,9 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+    ./nvidia.nix
     ];
+
 
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/nvme1n1";
