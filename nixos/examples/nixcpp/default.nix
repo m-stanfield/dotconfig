@@ -1,17 +1,22 @@
-{ lib
-, llvmPackages_11
-, cmake
-, spdlog
-, abseil-cpp }:
+{
+  lib,
+  llvmPackages_11,
+  cmake,
+  spdlog,
+  abseil-cpp,
+}:
 
 llvmPackages_11.stdenv.mkDerivation rec {
   pname = "cpp-examples";
   version = "0.1.0";
-  
+
   src = ./.;
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ spdlog abseil-cpp ];
+  buildInputs = [
+    spdlog
+    abseil-cpp
+  ];
 
   cmakeFlags = [
     "-DENABLE_TESTING=OFF"
@@ -26,6 +31,6 @@ llvmPackages_11.stdenv.mkDerivation rec {
     '';
     licencse = licenses.mit;
     platforms = with platforms; linux ++ darwin;
-    maintainers = [ maintainers.breakds ];    
+    maintainers = [ maintainers.breakds ];
   };
 }

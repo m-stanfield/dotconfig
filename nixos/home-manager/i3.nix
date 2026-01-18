@@ -1,4 +1,10 @@
-{ config, lib, pkgs,home, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  home,
+  ...
+}:
 {
   home.packages = with pkgs; [
     i3status-rust
@@ -18,6 +24,4 @@
     ln -sfn "$HOME/code/dotconfig/config/i3status/config" "$HOME/.config/i3status/config"
   '';
 
-
 }
-
