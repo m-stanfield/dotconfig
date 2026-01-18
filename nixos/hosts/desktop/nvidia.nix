@@ -17,6 +17,7 @@
 
   environment.systemPackages = with pkgs; [
     nvtopPackages.nvidia
+    nvidia-utils
   ];
   # Enable OpenGL
   hardware.graphics = {

@@ -43,6 +43,17 @@
 
     settings = {
 
+    monitor = [
+      "test, 1920x340@60, 0x0, 1"
+      "test2, 1920x740@60, 0x340, 1"
+      ];
+      workspace = [
+  # Bind workspace 1 to DP-1 (your main monitor)
+  "1,monitor:test"
+
+  # Bind workspace 2 to DP-2
+  "2,monitor:test2"
+      ];
       cursor = {
         sync_gsettings_theme = true;
 
@@ -54,6 +65,9 @@
       };
      exec-once = [
       "waybar"
+      # activate workspace 1 and 2 on start
+      "hyprctl dispatch workspace 1"
+      "hyprctl dispatch workspace 2"
      ];
      "$mod" = "SUPER";
      "$left" = "j";
