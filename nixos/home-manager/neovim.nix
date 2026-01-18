@@ -16,10 +16,16 @@
     enable = true;
     # package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
     extraLuaPackages = luaPkgs: with luaPkgs; [ luarocks ];
+    plugins = with pkgs.vimPlugins; [
+      nvim-treesitter
+    ];
 
     extraPackages = with pkgs; [
+      lua-language-server
+      nixd
       xclip
-      vimPlugins.nvim-treesitter
+      tree-sitter
+      typescript-language-server
       clang
       llvm
       python3
@@ -39,6 +45,7 @@
       isort
       black
       stylua
+      nixfmt-rfc-style
       #eslint
       delve
 
