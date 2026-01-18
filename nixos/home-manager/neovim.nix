@@ -19,6 +19,7 @@
 
     extraPackages = with pkgs; [
       xclip
+      vimPlugins.nvim-treesitter
       clang
       llvm
       python3
