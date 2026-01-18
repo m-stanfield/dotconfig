@@ -129,6 +129,7 @@
     prusa-slicer
     p7zip
     sqlitebrowser
+    nixfmt-tree
     calibre
     vlc
     audacity
