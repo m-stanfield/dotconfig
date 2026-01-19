@@ -11,16 +11,8 @@
 
 {
   imports = [
-    # Include the results of the hardware scan.
-    ./virtual-box.nix
-    ./obs.nix
-    ./autorandr.nix
+    # Main user configuration
     ./main-user.nix
-    ./steam.nix
-    ./code-cursor.nix
-    ./libreoffice.nix
-    ./docker.nix
-    inputs.home-manager.nixosModules.default
   ];
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
 
