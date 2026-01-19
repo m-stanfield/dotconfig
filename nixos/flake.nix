@@ -18,13 +18,19 @@
       inherit (self) outputs;
     in
     {
+      # Export modules for reuse
+      nixosModules = {
+        features = import ./modules;
+      };
+
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs outputs; };
           modules = [
-            ./hosts/desktop/configuration.nix
+            ./modules
             ./configuration.nix
+            ./hosts/desktop/configuration.nix
             inputs.home-manager.nixosModules.default
           ];
         };
@@ -32,6 +38,7 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs outputs; };
           modules = [
+            ./modules
             ./configuration.nix
             ./hosts/roglaptop/configuration.nix
             inputs.home-manager.nixosModules.default
@@ -41,6 +48,7 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs outputs; };
           modules = [
+            ./modules
             ./configuration.nix
             ./hosts/laptop/configuration.nix
             inputs.home-manager.nixosModules.default

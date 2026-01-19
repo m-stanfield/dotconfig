@@ -18,4 +18,12 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Enable features specific to this host
+  features = {
+    desktop-i3.enable = true;
+    docker.enable = true;
+    code-cursor.enable = true;
+    libreoffice.enable = true;
+  };
+
 }
