@@ -42,6 +42,7 @@
       nodePackages.neovim # Required for Node-based Neovim plugins
 
       prettierd
+      rustywind
       isort
       black
       stylua

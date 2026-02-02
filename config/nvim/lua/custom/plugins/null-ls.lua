@@ -18,8 +18,16 @@ return {
     null_ls.setup {
       sources = {
         null_ls.builtins.formatting.prettierd.with {
-          extra_args = { '--single-quote', '--jsx-single-quote', '--print-width', '120', '--tab-width', '2' },
+          extra_args = {
+            '--single-quote',
+            '--jsx-single-quote',
+            '--print-width',
+            '120',
+            '--tab-width',
+            '2',
+          },
         },
+        null_ls.builtins.formatting.rustywind,
         null_ls.builtins.formatting.stylua,
         --  null_ls.builtins.diagnostics.eslint,
         null_ls.builtins.completion.spell,
