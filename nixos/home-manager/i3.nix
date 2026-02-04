@@ -12,16 +12,23 @@
     i3
 
   ];
-  home.activation.linkI3Config = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    ln -sfn "$HOME/code/dotconfig/config/i3/config" "$HOME/.config/i3/config"
-  '';
 
-  home.activation.linkI3StatusRustConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    ln -sfn "$HOME/code/dotconfig/config/i3status-rust/config.toml" "$HOME/.config/i3status-rust/config.toml"
-  '';
+  home.file = {
+    ".config/i3/config" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/code/dotconfig/config/i3/config";
+    };
+  };
 
-  home.activation.linkI3StatusConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    ln -sfn "$HOME/code/dotconfig/config/i3status/config" "$HOME/.config/i3status/config"
-  '';
+  home.file = {
+    ".config/i3status-rust/config.toml" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/code/dotconfig/config/i3status-rust/config.toml";
+    };
+  };
+
+  home.file = {
+    ".config/i3status/config" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/code/dotconfig/config/i3status/config";
+    };
+  };
 
 }
