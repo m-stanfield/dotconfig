@@ -169,7 +169,6 @@
     stow
     cloc
     htop
-    btop
     home-manager
     kitty
     catppuccin
