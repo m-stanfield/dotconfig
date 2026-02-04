@@ -15,6 +15,8 @@
   boot.loader.grub.device = "/dev/nvme1n1";
   boot.loader.grub.useOSProber = true;
 
+  boot.kernelParams = [ "btusb.enable_autosuspend=n" ];
+
   systemd.tmpfiles.rules = [
     # Type Path        Mode    UID     GID     Age  Argument
     "d     /mnt/ssd    0755    1000    100     -    -"
