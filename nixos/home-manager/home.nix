@@ -12,6 +12,7 @@
     ./i3.nix
     ./synology.nix
     ./btop.nix
+    ./claude.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
