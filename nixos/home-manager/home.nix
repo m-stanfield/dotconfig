@@ -94,8 +94,8 @@
   #  /etc/profiles/per-user/testName/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    EDITOR = "neovim";
     BROWSER = "firefox";
+    EDITOR = "nvim";
     TERMINAL = "kitty";
   };
 
