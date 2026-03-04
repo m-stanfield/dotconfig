@@ -7,61 +7,54 @@
 }:
 
 {
+  home.file.".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/code/dotconfig/config/nvim";
 
-  home.file = {
-      ".config/nvim" = {
-          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/code/dotconfig/config/nvim";
-      };
-  };
+  home.packages = with pkgs; [
+    neovim
 
-  programs.neovim = {
-    vimAlias = true;
-    enable = true;
-    # package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
-    extraLuaPackages = luaPkgs: with luaPkgs; [ luarocks ];
-    plugins = with pkgs.vimPlugins; [
-      nvim-treesitter
-    ];
+    # Lua
+    lua-language-server
+    luarocks
 
-    extraPackages = with pkgs; [
-      lua-language-server
-      nixd
-      xclip
-      tree-sitter
-      typescript-language-server
-      clang
-      llvm
-      python3
-      python3Packages.pynvim # Required for Python Neovim support
-      python3Packages.debugpy
+    # Nix
+    nixd
+    nixfmt-rfc-style
 
-      # Go
-      go
-      gopls # Go LSP for autocompletion
+    # System tools
+    xclip
+    tree-sitter
+    ripgrep
+    unzip
 
-      # Node.js
-      nodejs
-      nodePackages.pnpm # Optional: npm or yarn
-      nodePackages.neovim # Required for Node-based Neovim plugins
+    # TypeScript/JavaScript
+    typescript-language-server
+    nodejs
+    nodePackages.pnpm
+    nodePackages.neovim
+    nodePackages.vscode-langservers-extracted
+    prettierd
 
-      prettierd
-      rustywind
-      isort
-      black
-      stylua
-      nixfmt-rfc-style
-      #eslint
-      delve
+    # C/C++
+    clang
+    llvm
 
-      # Debugging tools
+    # Python
+    python3
+    python3Packages.pynvim
+    python3Packages.debugpy
+    isort
+    black
 
-      # Language servers
-      nodePackages.vscode-langservers-extracted # Includes html-lsp, css-lsp, eslint-lsp
+    # Go
+    go
+    gopls
+    delve
 
-      # Other Mason dependencies
-      unzip # Needed for Mason tools
-      ripgrep # Improves LSP performance in Neovim
+    # Other formatters
+    rustywind
+    stylua
+  ];
 
-    ];
-  };
+  # Alias vim to nvim
+  home.shellAliases.vim = "nvim";
 }
