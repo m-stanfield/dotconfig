@@ -44,6 +44,33 @@ P.S. You can delete this when you're done too. It's your config now :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Compatibility shims for Neovim 0.11+ API changes
+-- Some plugins call these without required parameters or use deprecated functions
+
+local orig_make_position_params = vim.lsp.util.make_position_params
+vim.lsp.util.make_position_params = function(window, offset_encoding)
+  if offset_encoding == nil then
+    local buf = vim.api.nvim_win_get_buf(window or 0)
+    local clients = vim.lsp.get_clients({ bufnr = buf })
+    if clients[1] then
+      offset_encoding = clients[1].offset_encoding
+    end
+  end
+  return orig_make_position_params(window, offset_encoding)
+end
+
+-- Suppress jump_to_location deprecation warning (used by Telescope and other plugins)
+local orig_jump_to_location = vim.lsp.util.jump_to_location
+vim.lsp.util.jump_to_location = function(location, offset_encoding, reuse_win)
+  if offset_encoding == nil then
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+    if clients[1] then
+      offset_encoding = clients[1].offset_encoding
+    end
+  end
+  return orig_jump_to_location(location, offset_encoding, reuse_win)
+end
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 require 'lazy-bootstrap'
 

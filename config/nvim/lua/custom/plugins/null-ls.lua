@@ -24,7 +24,7 @@ return {
             '--print-width',
             '120',
             '--tab-width',
-            '2',
+            '4',
           },
         },
         null_ls.builtins.formatting.rustywind,

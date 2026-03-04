@@ -61,8 +61,8 @@ return {
         vim.keymap.set("n", "<leader>hP", function() harpoon:list():removeAt(4) end, { desc = "Remove 4" })
 
 
-        vim.keymap.set("n", "<leader>hp", function() harpoon:list():prev() end, { desc = "[P]rev" })
-        vim.keymap.set("n", "<leader>hn", function() harpoon:list():next() end, { desc = "[N]ext" })
+        vim.keymap.set("n", "<leader>h[", function() harpoon:list():prev() end, { desc = "Prev" })
+        vim.keymap.set("n", "<leader>h]", function() harpoon:list():next() end, { desc = "Next" })
         -- Toggle previous & next buffers stored within Harpoon list
         vim.keymap.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end,
             { desc = "Open harpoon window" })

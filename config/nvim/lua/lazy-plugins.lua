@@ -272,22 +272,6 @@ require('lazy').setup({
   },
 
   {
-    'ray-x/lsp_signature.nvim',
-    event = 'VeryLazy',
-    opts = {},
-    config = function(_, opts)
-      require('lsp_signature').setup(opts)
-    end,
-    on_attach = function(client, bufnr)
-      require('lsp_signature').on_attach({
-        bind = true, -- This is mandatory, otherwise border config won't get registered.
-        handler_opts = {
-          border = 'rounded',
-        },
-      }, bufnr)
-    end,
-  },
-  {
     'nvim-neo-tree/neo-tree.nvim',
     branch = 'v3.x',
     dependencies = {
@@ -316,7 +300,6 @@ require('lazy').setup({
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
-  require 'kickstart.plugins.autoformat',
   require 'kickstart.plugins.debug',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
