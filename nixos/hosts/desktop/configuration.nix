@@ -6,10 +6,24 @@
 
 {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./nvidia.nix
   ];
+
+  # Enable features for desktop
+  features = {
+    gaming.enable = true;        # Enables Steam via gaming.steam.enable default
+    development = {
+      docker.enable = true;
+      virtualbox.enable = true;
+    };
+    desktop = {
+      obs.enable = true;
+      libreoffice.enable = true;
+      autorandr.enable = true;   # Includes i3/xfce setup
+    };
+    editors.cursor.enable = true;
+  };
 
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/nvme1n1";
