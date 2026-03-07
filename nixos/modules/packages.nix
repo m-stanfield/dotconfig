@@ -5,6 +5,7 @@
   environment.pathsToLink = [ "/libexec" ];
 
   environment.systemPackages = with pkgs; [
+    (llama-cpp.override { cudaSupport = true; })
     ollama-cuda
     psmisc
     godot
