@@ -5,6 +5,7 @@
   environment.pathsToLink = [ "/libexec" ];
 
   environment.systemPackages = with pkgs; [
+    ollama-cuda
     psmisc
     godot
     starship
