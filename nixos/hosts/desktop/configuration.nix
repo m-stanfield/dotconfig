@@ -16,6 +16,7 @@
     development = {
       docker.enable = true;
       virtualbox.enable = true;
+      opencode.enable = true;
     };
     desktop = {
       obs.enable = true;

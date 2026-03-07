@@ -20,6 +20,7 @@ in
 
     # Development
     development = {
+      opencode.enable = lib.mkEnableOption "Opencode support";
       docker.enable = lib.mkEnableOption "Docker support";
       virtualbox.enable = lib.mkEnableOption "VirtualBox support";
     };

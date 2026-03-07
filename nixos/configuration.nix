@@ -31,6 +31,7 @@
     ./modules/cursor.nix
     ./modules/libreoffice.nix
     ./modules/docker.nix
+    ./modules/opencode.nix
 
     # Home-manager
     inputs.home-manager.nixosModules.default
