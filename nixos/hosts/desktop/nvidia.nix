@@ -13,8 +13,6 @@
     settings = {
       "vsync" = true;
       "backend" = "glx";
-      "glx-no-stencil" = true;
-      "glx-no-rebind-pixmap" = true;
       "unredir-if-possible" = false;
     };
   };
