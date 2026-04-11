@@ -29,9 +29,6 @@
     # TypeScript/JavaScript
     typescript-language-server
     nodejs
-    nodePackages.pnpm
-    nodePackages.neovim
-    nodePackages.vscode-langservers-extracted
     prettierd
 
     # C/C++
