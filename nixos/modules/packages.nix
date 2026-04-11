@@ -26,6 +26,7 @@
     vlc
     audacity
     telegram-desktop
+    signal-desktop
     qdirstat
     qalculate-qt
     kalker
