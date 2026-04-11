@@ -73,7 +73,7 @@ local servers = {
   -- rust_analyzer = {},
   html = { filetypes = { 'html', 'twig', 'hbs', 'tmpl' } },
   ts_ls = {},
-  -- ruff = {},
+  ruff = {},
 
   lua_ls = {
     settings = {

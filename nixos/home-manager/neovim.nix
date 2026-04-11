@@ -39,8 +39,7 @@
     python3
     python3Packages.pynvim
     python3Packages.debugpy
-    isort
-    black
+    ruff
 
     # Go
     go
