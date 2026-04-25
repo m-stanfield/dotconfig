@@ -72,26 +72,65 @@ return {
       },
     }
 
+    -- GDB DAP adapter (requires GDB 14+, available on NixOS unstable).
+    -- Used for attaching to OpenOCD's GDB server for ESP32 JTAG debugging.
+    dap.adapters.gdb = {
+      type = 'executable',
+      command = 'gdb',
+      args = { '--interpreter=dap', '--eval-command', 'set print pretty on' },
+      options = { disconnect_timeout_sec = 5 },
+    }
+
     dap.configurations.cpp = {
+      -- CMake native builds
       {
-        name = 'Launch file',
+        name = 'CMake: Launch',
         type = 'codelldb',
         request = 'launch',
         cwd = '${workspaceFolder}',
         stopOnEntry = false,
-
         program = function()
-          -- Build with debug symbols
           local out = vim.fn.system { 'cmake', '--build', 'build' }
-          -- Check for errors
           if vim.v.shell_error ~= 0 then
             vim.notify(out, vim.log.levels.ERROR)
             return nil
           end
-          -- Return path to the debuggable program
           return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/build/src/', 'file')
         end,
         terminal = 'console',
+      },
+      -- PlatformIO ESP32: attach to OpenOCD GDB server on port 3333.
+      -- Prerequisites:
+      --   1. Build with <leader>pb
+      --   2. Start OpenOCD: run `<leader>pd` (pio debug --interface gdb -x .pioinit)
+      --      then in a second terminal: connect gdb to :3333 once OpenOCD is ready.
+      --   OR for automated JTAG: start OpenOCD manually, then use this config.
+      -- Note: requires GDB 14+ (host gdb with --interpreter=dap).
+      -- Espressif's xtensa-esp32-elf-gdb is v12 and cannot drive this;
+      -- this config uses the system gdb (multiarch) connecting to OpenOCD.
+      {
+        name = 'PlatformIO ESP32 (OpenOCD JTAG on :3333)',
+        type = 'gdb',
+        request = 'attach',
+        target = 'extended-remote :3333',
+        program = function()
+          local cwd = vim.fn.getcwd()
+          local files = vim.fn.glob(cwd .. '/.pio/build/*/firmware.elf', false, true)
+          if #files == 1 then
+            return files[1]
+          elseif #files > 1 then
+            local items = vim.tbl_map(function(f)
+              return vim.fn.fnamemodify(f, ':~:.')
+            end, files)
+            local choice = vim.fn.inputlist(vim.list_extend({ 'Select firmware.elf:' }, items))
+            if choice > 0 then
+              return files[choice]
+            end
+          end
+          return vim.fn.input('Path to firmware.elf: ', cwd .. '/.pio/build/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopAtBeginningOfMainSubprogram = false,
       },
     }
     dap.adapters.python = {

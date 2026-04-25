@@ -19,6 +19,7 @@
       opencode.enable = true;
       unity.enable = true;
       godot.enable = true;
+      embedded.enable = true;
     };
     desktop = {
       obs.enable = true;

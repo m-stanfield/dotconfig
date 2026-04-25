@@ -25,6 +25,7 @@ in
       virtualbox.enable = lib.mkEnableOption "VirtualBox support";
       unity.enable = lib.mkEnableOption "Unity Hub";
       godot.enable = lib.mkEnableOption "Godot game engine";
+      embedded.enable = lib.mkEnableOption "embedded development (PlatformIO, ESP32, OpenOCD)";
     };
 
     # Desktop

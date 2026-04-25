@@ -37,6 +37,7 @@
     ./modules/unityhub.nix
     ./modules/godot.nix
     ./modules/prusa-slicer.nix
+    ./modules/embedded.nix
 
     # Home-manager
     inputs.home-manager.nixosModules.default
