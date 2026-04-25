@@ -23,6 +23,8 @@ in
       opencode.enable = lib.mkEnableOption "Opencode support";
       docker.enable = lib.mkEnableOption "Docker support";
       virtualbox.enable = lib.mkEnableOption "VirtualBox support";
+      unity.enable = lib.mkEnableOption "Unity Hub";
+      godot.enable = lib.mkEnableOption "Godot game engine";
     };
 
     # Desktop
@@ -30,11 +32,24 @@ in
       obs.enable = lib.mkEnableOption "OBS Studio";
       libreoffice.enable = lib.mkEnableOption "LibreOffice";
       autorandr.enable = lib.mkEnableOption "autorandr multi-monitor support";
+      prusaSlicer.enable = lib.mkEnableOption "PrusaSlicer 3D printing";
     };
 
     # Editors
     editors = {
       cursor.enable = lib.mkEnableOption "Cursor editor";
+    };
+
+    # AI
+    ai = {
+      llama = {
+        enable = lib.mkEnableOption "llama-cpp";
+        cuda = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Enable CUDA support for llama-cpp";
+        };
+      };
     };
   };
 

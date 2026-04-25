@@ -32,6 +32,11 @@
     ./modules/libreoffice.nix
     ./modules/docker.nix
     ./modules/opencode.nix
+    ./modules/llama.nix
+    ./modules/gaming-packages.nix
+    ./modules/unityhub.nix
+    ./modules/godot.nix
+    ./modules/prusa-slicer.nix
 
     # Home-manager
     inputs.home-manager.nixosModules.default

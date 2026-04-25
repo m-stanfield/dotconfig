@@ -17,13 +17,20 @@
       docker.enable = true;
       virtualbox.enable = true;
       opencode.enable = true;
+      unity.enable = true;
+      godot.enable = true;
     };
     desktop = {
       obs.enable = true;
       libreoffice.enable = true;
       autorandr.enable = true;   # Includes i3/xfce setup
+      prusaSlicer.enable = true;
     };
     editors.cursor.enable = true;
+    ai.llama = {
+      enable = true;
+      cuda = true;
+    };
   };
 
   boot.loader.grub.enable = true;

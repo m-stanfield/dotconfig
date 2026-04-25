@@ -5,20 +5,11 @@
   environment.pathsToLink = [ "/libexec" ];
 
   environment.systemPackages = with pkgs; [
-    (llama-cpp.override { cudaSupport = true; })
-    ollama-cuda
     psmisc
-    godot
     starship
     slack
     filezilla
-    (retroarch.withCores (
-      cores: with cores; [
-        desmume
-      ]
-    ))
     file-roller
-    prusa-slicer
     p7zip
     sqlitebrowser
     nixfmt-tree
@@ -30,18 +21,10 @@
     qdirstat
     qalculate-qt
     kalker
-    (lutris.override {
-      extraLibraries =
-        pkgs: with pkgs; [
-          libadwaita
-          gtk4
-        ];
-    })
     speedcrunch
     numbat
     pinta
     ffmpeg
-    xivlauncher
     glances
     obsidian
     pulseaudio
@@ -50,7 +33,6 @@
     systemctl-tui
     feh
     playerctl
-    unityhub
     google-chrome
     vscode
     spotify
