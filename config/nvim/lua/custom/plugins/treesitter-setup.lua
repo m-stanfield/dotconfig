@@ -14,6 +14,7 @@ return {
         'astro',
         'bash',
         'c',
+        'cpp',
         'css',
         'diff',
         'go',
