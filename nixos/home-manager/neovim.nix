@@ -34,6 +34,7 @@
     # C/C++
     clang
     llvm
+    clang-tools
 
     # Python
     python3

@@ -51,7 +51,7 @@ local orig_make_position_params = vim.lsp.util.make_position_params
 vim.lsp.util.make_position_params = function(window, offset_encoding)
   if offset_encoding == nil then
     local buf = vim.api.nvim_win_get_buf(window or 0)
-    local clients = vim.lsp.get_clients({ bufnr = buf })
+    local clients = vim.lsp.get_clients { bufnr = buf }
     if clients[1] then
       offset_encoding = clients[1].offset_encoding
     end
@@ -63,7 +63,7 @@ end
 local orig_jump_to_location = vim.lsp.util.jump_to_location
 vim.lsp.util.jump_to_location = function(location, offset_encoding, reuse_win)
   if offset_encoding == nil then
-    local clients = vim.lsp.get_clients({ bufnr = 0 })
+    local clients = vim.lsp.get_clients { bufnr = 0 }
     if clients[1] then
       offset_encoding = clients[1].offset_encoding
     end
@@ -94,9 +94,6 @@ require 'lsp-setup'
 -- [[ Configure nvim-cmp ]]
 -- (completion)
 require 'cmp-setup'
-
--- [[ PlatformIO / ESP32 integration ]]
-require 'custom.platformio'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
