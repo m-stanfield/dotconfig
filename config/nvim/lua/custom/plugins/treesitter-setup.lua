@@ -56,6 +56,10 @@ return {
           vim.api.nvim_create_autocmd({ 'FileType' }, {
             pattern = filetypes,
             callback = function(event)
+              local bt = vim.api.nvim_get_option_value('buftype', { buf = event.buf })
+              if bt == 'terminal' or bt == 'nofile' or bt == 'prompt' then
+                return
+              end
               vim.treesitter.start(event.buf, parser)
             end,
           })
@@ -66,6 +70,13 @@ return {
       vim.api.nvim_create_autocmd({ 'BufRead' }, {
         callback = function(event)
           local bufnr = event.buf
+          local buftype = vim.api.nvim_get_option_value('buftype', { buf = bufnr })
+
+          -- Skip terminal and special buffers
+          if buftype == 'terminal' or buftype == 'nofile' or buftype == 'prompt' then
+            return
+          end
+
           local filetype = vim.api.nvim_get_option_value('filetype', { buf = bufnr })
 
           -- Skip if no filetype

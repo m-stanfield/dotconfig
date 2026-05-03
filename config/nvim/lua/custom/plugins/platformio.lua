@@ -20,7 +20,11 @@ return {
     config = function()
         -- Run a pio command in a bottom terminal split
         local function pio_term(args)
+            -- Create a fresh buffer so termopen never targets the main buffer
+            local buf = vim.api.nvim_create_buf(false, true)
             vim.cmd("botright 15split")
+            local win = vim.api.nvim_get_current_win()
+            vim.api.nvim_win_set_buf(win, buf)
             vim.fn.termopen("pio " .. args, {
                 on_exit = function(_, code, _)
                     local level = code == 0 and vim.log.levels.INFO or vim.log.levels.ERROR
@@ -40,9 +44,43 @@ return {
             pio_term("run --target upload")
         end, { desc = "PlatformIO: Upload firmware" })
 
+        -- Run a pio command in a terminal, killing the entire process group when
+        -- the window is closed so child processes (miniterm, etc.) release the serial port.
+        local function pio_term_monitor(args)
+            local buf = vim.api.nvim_create_buf(false, true)
+            vim.cmd("botright 15split")
+            local win = vim.api.nvim_get_current_win()
+            vim.api.nvim_win_set_buf(win, buf)
+            -- wipe the buffer when the window closes so BufWipeout fires
+            vim.bo[buf].bufhidden = "wipe"
+            local job_id = vim.fn.termopen("pio " .. args, {
+                on_exit = function(_, code, _)
+                    local level = code == 0 and vim.log.levels.INFO or vim.log.levels.ERROR
+                    vim.notify(("[PlatformIO] `pio %s` exited with code %d"):format(args, code), level)
+                end,
+            })
+            -- BufWipeout fires when the buffer is wiped (triggered by bufhidden=wipe on :q)
+            vim.api.nvim_create_autocmd("BufWipeout", {
+                buffer = buf,
+                once = true,
+                callback = function()
+                    -- Kill the whole process group so miniterm/pyserial children release the port.
+                    -- Use pcall in case the job already exited (invalid channel id).
+                    local ok, pid = pcall(vim.fn.jobpid, job_id)
+                    if ok and pid and pid > 0 then
+                        vim.fn.system({ "kill", "-TERM", "-" .. pid })
+                    end
+                    pcall(vim.fn.jobstop, job_id)
+                end,
+            })
+            -- Esc exits terminal mode so you can navigate windows; press i to re-enter
+            vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { buffer = buf, desc = "Exit terminal mode" })
+            vim.cmd("startinsert")
+        end
+
         -- Serial monitor
         vim.api.nvim_create_user_command("PioMonitor", function()
-            pio_term("device monitor")
+            pio_term_monitor("device monitor")
         end, { desc = "PlatformIO: Serial monitor" })
 
         -- Clean
@@ -52,7 +90,7 @@ return {
 
         -- Upload then monitor
         vim.api.nvim_create_user_command("PioUploadMonitor", function()
-            pio_term("run --target upload --target monitor")
+            pio_term_monitor("run --target upload --target monitor")
         end, { desc = "PlatformIO: Upload and open serial monitor" })
 
         -- Generate compile_commands.json and link to project root for clangd
