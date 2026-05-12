@@ -36,6 +36,7 @@ return {
           extra_args = { '--line-length=120' },
         },
         require('none-ls.diagnostics.ruff'),
+        null_ls.builtins.formatting.clang_format,
         null_ls.builtins.formatting.gofumpt,
         null_ls.builtins.formatting.goimports_reviser,
         null_ls.builtins.formatting.golines,
