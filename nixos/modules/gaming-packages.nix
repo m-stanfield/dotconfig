@@ -14,6 +14,14 @@ in
             libadwaita
             gtk4
           ];
+        buildFHSEnv = args: pkgs.buildFHSEnv (args // {
+          multiPkgs = envPkgs:
+            let
+              originalPkgs = args.multiPkgs envPkgs;
+              customLdap = envPkgs.openldap.overrideAttrs (_: { doCheck = false; });
+            in
+            builtins.filter (p: (p.pname or "") != "openldap") originalPkgs ++ [ customLdap ];
+        });
       })
       (retroarch.withCores (
         cores: with cores; [
