@@ -119,4 +119,30 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = on_attach,
 })
 
+vim.api.nvim_create_user_command('LspRestart', function()
+  local clients = vim.lsp.get_clients()
+  local count = #clients
+
+  local buf_map = {}
+  for _, client in ipairs(clients) do
+    buf_map[client.id] = vim.lsp.get_buffers_by_client_id(client.id)
+    client.stop()
+  end
+
+  vim.defer_fn(function()
+    local visited = {}
+    for _, bufs in pairs(buf_map) do
+      for _, buf in ipairs(bufs) do
+        if not visited[buf] and vim.api.nvim_buf_is_valid(buf) then
+          visited[buf] = true
+          vim.api.nvim_buf_call(buf, function()
+            vim.cmd('doautocmd FileType')
+          end)
+        end
+      end
+    end
+    vim.notify('Restarted ' .. count .. ' LSP client(s)', vim.log.levels.INFO)
+  end, 500)
+end, { desc = 'Restart all LSP clients across all buffers' })
+
 -- vim: ts=2 sts=2 sw=2 et

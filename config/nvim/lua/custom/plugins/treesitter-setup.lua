@@ -42,6 +42,7 @@ return {
         'vimdoc',
         'yaml',
         'ruby',
+        'sql',
       },
     },
     config = function(_, opts)
