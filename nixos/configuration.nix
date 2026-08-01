@@ -42,6 +42,8 @@
     # Home-manager
     inputs.home-manager.nixosModules.default
   ];
+ 
+  boot.supportedFilesystems.exfat = true;
 
   # Enable unfree software
   nixpkgs.config = {
