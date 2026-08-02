@@ -61,19 +61,29 @@
               abseil-cpp
             ];
 
+            # REMINDER: When setting up the project, make sure you include
+            #   CMAKE_BUILD_TYPE=Debug
+            #   CMAKE_EXPORT_COMPILE_COMMANDS=ON
+            # in your CMake configuration.
+            #
             # Setting up the environment variables you need during
             # development.
-            shellHook =
-              let
-                icon = "f121";
-              in
-              ''
-                echo "entering devshell for ${name}"
+            shellHook =            ''
                 export VSCODE_LLDB_PATH=${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb
+                echo "entering devshell for ${name}"
+
+                configure() {
+                  cmake -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "$@"
+                }
+
+                build() {
+                  cmake --build build "$@"
+                }
+
+                echo "Available commands: configure, build"
               '';
           };
 
-          packages.default = pkgs.callPackage ./default.nix { };
         }
       );
 }
