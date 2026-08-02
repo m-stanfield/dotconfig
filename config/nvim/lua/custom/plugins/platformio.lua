@@ -14,6 +14,8 @@
 --   <leader>pU  Upload + monitor
 --   <leader>pC  Generate compile_commands.json (and link to project root for clangd)
 --   <leader>pd  Debug (interactive GDB via pio debug — ESP32 GDB is too old for DAP)
+--   <leader>pt  Test (native/host)
+--   <leader>pT  Test (on-device)
 return {
     dir = vim.fn.stdpath("config"),
     name = "platformio",
@@ -122,6 +124,16 @@ return {
             vim.cmd("startinsert")
         end, { desc = "PlatformIO: Generate compile_commands.json for clangd" })
 
+        -- Native (host) tests
+        vim.api.nvim_create_user_command("PioTest", function()
+            pio_term("test --environment native")
+        end, { desc = "PlatformIO: Run native/host tests" })
+
+        -- On-device tests
+        vim.api.nvim_create_user_command("PioTestDevice", function()
+            pio_term("test")
+        end, { desc = "PlatformIO: Run on-device tests" })
+
         -- Interactive GDB debug session via PlatformIO.
         -- Note: Espressif's bundled xtensa-esp32-elf-gdb is v12 and does NOT support
         -- --interpreter=dap, so nvim-dap cannot drive it. Use this for a raw GDB terminal.
@@ -143,5 +155,7 @@ return {
         vim.keymap.set("n", "<leader>pU", "<cmd>PioUploadMonitor<CR>", { desc = "PlatformIO: [U]pload+Monitor" })
         vim.keymap.set("n", "<leader>pC", "<cmd>PioCompileDB<CR>", { desc = "PlatformIO: compile_[C]ommands.json" })
         vim.keymap.set("n", "<leader>pd", "<cmd>PioDebug<CR>", { desc = "PlatformIO: [D]ebug (GDB terminal)" })
+        vim.keymap.set("n", "<leader>pt", "<cmd>PioTest<CR>", { desc = "PlatformIO: [T]est (native)" })
+        vim.keymap.set("n", "<leader>pT", "<cmd>PioTestDevice<CR>", { desc = "PlatformIO: [T]est (on-device)" })
     end,
 }
