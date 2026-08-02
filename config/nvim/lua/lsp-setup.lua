@@ -71,7 +71,7 @@ local servers = {
       'clangd',
       -- Allow clangd to query PlatformIO cross-compilers for built-in include paths.
       -- Covers xtensa (ESP32/S2), riscv32 (ESP32-C3/C6/H2), and arm (ESP32-S3 variants).
-      '--query-driver=' .. vim.env.HOME .. '/.platformio/packages/toolchain-*/bin/*-elf-*',
+      -- '--query-driver=' .. vim.env.HOME .. '/.platformio/packages/toolchain-*/bin/*-elf-*',
       '--clang-tidy',
       '--header-insertion=iwyu',
     },
@@ -136,7 +136,7 @@ vim.api.nvim_create_user_command('LspRestart', function()
         if not visited[buf] and vim.api.nvim_buf_is_valid(buf) then
           visited[buf] = true
           vim.api.nvim_buf_call(buf, function()
-            vim.cmd('doautocmd FileType')
+            vim.cmd 'doautocmd FileType'
           end)
         end
       end
