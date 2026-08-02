@@ -8,7 +8,11 @@
   networking.hostName = lib.mkDefault "nixos";
 
   networking.firewall.allowedTCPPorts = [
+    80
+    443
     3000
+    5173
     8080
+    8888
   ];
 }
