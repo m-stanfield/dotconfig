@@ -76,7 +76,6 @@ local servers = {
       '--header-insertion=iwyu',
     },
   },
-  nixd = {},
   gopls = {},
   pyright = {},
   -- rust_analyzer = {},
@@ -118,20 +117,19 @@ if os.getenv('NIX_NEOVIM') == '1' then
     vim.lsp.enable(server_name)
   end
 else
-  require('mason-lspconfig').setup()
-
-  -- Default handler runs for every server installed via mason
-  local default_handler = function(server_name)
-    local opts = vim.tbl_deep_extend('force', {
-      capabilities = capabilities,
-    }, servers[server_name] or {})
-
-    require('lspconfig')[server_name].setup(opts)
-  end
-
-  require('mason-lspconfig').setup_handlers {
-    default_handler,
+  require('mason-lspconfig').setup {
+    ensure_installed = vim.tbl_keys(servers),
+    automatic_enable = false,
   }
+
+  for server_name, opts in pairs(servers) do
+    opts = vim.tbl_deep_extend('force', {
+      capabilities = capabilities,
+    }, opts)
+
+    vim.lsp.config(server_name, opts)
+    vim.lsp.enable(server_name)
+  end
 end
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),

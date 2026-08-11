@@ -20,7 +20,6 @@
     luarocks
 
     # Nix
-    nixd
     nixfmt-rfc-style
 
     # System tools
