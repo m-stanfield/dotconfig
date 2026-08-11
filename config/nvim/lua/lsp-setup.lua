@@ -101,18 +101,37 @@ require('neodev').setup()
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-for server_name, opts in pairs(servers) do
-  -- print server name
-  vim.notify('Setting up LSP server: ' .. server_name)
+-- NixOS provides LSP servers via home-manager packages, so register them
+-- directly. On other systems, mason installs and manages the servers for us.
+if os.getenv('NIX_NEOVIM') == '1' then
+  for server_name, opts in pairs(servers) do
+    -- print server name
+    vim.notify('Setting up LSP server: ' .. server_name)
 
-  opts = vim.tbl_deep_extend('force', {
-    capabilities = capabilities,
-    settings = (servers[server_name] or {}).settings,
-    filetypes = (servers[server_name] or {}).filetypes,
-  }, opts or {})
+    opts = vim.tbl_deep_extend('force', {
+      capabilities = capabilities,
+      settings = (servers[server_name] or {}).settings,
+      filetypes = (servers[server_name] or {}).filetypes,
+    }, opts or {})
 
-  vim.lsp.config(server_name, opts)
-  vim.lsp.enable(server_name)
+    vim.lsp.config(server_name, opts)
+    vim.lsp.enable(server_name)
+  end
+else
+  require('mason-lspconfig').setup()
+
+  -- Default handler runs for every server installed via mason
+  local default_handler = function(server_name)
+    local opts = vim.tbl_deep_extend('force', {
+      capabilities = capabilities,
+    }, servers[server_name] or {})
+
+    require('lspconfig')[server_name].setup(opts)
+  end
+
+  require('mason-lspconfig').setup_handlers {
+    default_handler,
+  }
 end
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),

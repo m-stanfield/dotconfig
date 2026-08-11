@@ -42,6 +42,23 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
+      -- NOTE: Only loaded on non-NixOS; NixOS provides servers via home-manager packages.
+      {
+        'williamboman/mason.nvim',
+        cmd = 'Mason',
+        cond = function()
+          return os.getenv('NIX_NEOVIM') ~= '1'
+        end,
+        opts = {
+          ui = { border = 'rounded' },
+        },
+      },
+      {
+        'williamboman/mason-lspconfig.nvim',
+        cond = function()
+          return os.getenv('NIX_NEOVIM') ~= '1'
+        end,
+      },
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
