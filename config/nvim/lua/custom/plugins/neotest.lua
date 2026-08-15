@@ -9,6 +9,7 @@ return {
     'nvim-treesitter/nvim-treesitter',
     'fredrikaverpil/neotest-golang',
     'nvim-neotest/neotest-python',
+    'orjangj/neotest-ctest',
   },
 
   config = function()
@@ -18,8 +19,43 @@ return {
         require 'neotest-python' {
           dap = { justMyCode = false }, -- Enables debugging into library code
         },
+        require('neotest-ctest').setup {
+          dap_adapter = 'codelldb',
+          is_test_file = function(file)
+            return vim.fs.basename(file):match '^test_.*%.cpp$' ~= nil
+          end,
+        },
       },
     }
+
+    -- neotest-ctest's own TEST_P discovery only understands simple parameter
+    -- generators (e.g. `testing::Values(0, 1)`). It misses qualified calls like
+    -- `::testing::Values(...)` and can't reproduce the exact test names CTest
+    -- registers for struct/string parameters. Derive the per-parameter tests
+    -- straight from CTest's test list so they show up and run by their real names.
+    local gtest = require 'neotest-ctest.framework.gtest'
+    local original_build_parameterized = gtest.build_parameterized
+    gtest.build_parameterized = function(source, parent)
+      local ok, positions = pcall(function()
+        local root = require('neotest-ctest').root(parent.file_path)
+        if not root then
+          error 'no project root found'
+        end
+        local testcases = require('neotest-ctest.ctest'):new(root):testcases()
+        local prefix = '/' .. parent.name .. '/'
+        local result = {}
+        for name in pairs(testcases) do
+          if name:find(prefix, 1, true) then
+            table.insert(result, { type = 'test', path = parent.file_path, name = name })
+          end
+        end
+        return result
+      end)
+      if ok and positions[1] then
+        return positions
+      end
+      return original_build_parameterized(source, parent)
+    end
 
     -- Keymaps under <leader>t for [T]est
     vim.keymap.set('n', '<leader>tn', function()
