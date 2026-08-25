@@ -2,6 +2,9 @@
 
 config-version = 2
 
+start-at-login = true
+
+
 # In i3, all workspaces are phantom
 persistent-workspaces = []
 
@@ -17,7 +20,15 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 [mode.main.binding]
     # See: https://nikitabobko.github.io/AeroSpace/goodies#open-a-new-window-with-applescript
-    alt-enter = 'exec-and-forget open -n /Applications/Ghostty.app'
+    alt-enter = '''exec-and-forget osascript -e '
+tell application "Ghostty"
+    if it is running then
+        new window
+    else
+        activate
+    end if
+end tell'
+'''
     alt-shift-enter = 'exec-and-forget open -n -a /Applications/Firefox.app'
 
     # i3 wraps focus by default
@@ -30,6 +41,9 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     alt-shift-j = 'move down'
     alt-shift-k = 'move up'
     alt-shift-l = 'move right'
+
+    alt-shift-n = "move-workspace-to-monitor next"
+    alt-shift-p = "move-workspace-to-monitor prev"
 
     # Consider using 'join-with' command as a 'split' replacement if you want to enable
     # normalizations
