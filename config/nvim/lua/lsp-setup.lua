@@ -64,23 +64,36 @@ wk.add {
   { '<leader>w_', hidden = true },
 }
 
-local clang_driver = vim.fn.exepath 'clang++'
-if clang_driver == '' then
-  clang_driver = vim.fn.exepath 'clang'
+local clangd_cmd = {
+  'clangd',
+  -- Allow clangd to query PlatformIO cross-compilers for built-in include paths.
+  -- Covers xtensa (ESP32/S2), riscv32 (ESP32-C3/C6/H2), and arm (ESP32-S3 variants).
+  -- '--query-driver=' .. vim.env.HOME .. '/.platformio/packages/toolchain-*/bin/*-elf-*',
+  '--clang-tidy',
+  '--header-insertion=iwyu',
+}
+
+-- On NixOS the nixpkgs clangd wrapper resolves system include paths itself,
+-- and passing --query-driver disables that logic, so the flag must be left
+-- off there. Elsewhere mason installs a bare clangd, so whitelist the nix
+-- store wrapper compilers used by compile_commands.json in nix-built
+-- projects, plus whatever clang is in PATH.
+if os.getenv('NIX_NEOVIM') ~= '1' then
+  local query_drivers = { '/nix/store/**/bin/*' }
+  local clang_driver = vim.fn.exepath 'clang++'
+  if clang_driver == '' then
+    clang_driver = vim.fn.exepath 'clang'
+  end
+  if clang_driver ~= '' then
+    table.insert(query_drivers, clang_driver)
+  end
+  table.insert(clangd_cmd, '--query-driver=' .. table.concat(query_drivers, ','))
 end
 
 local servers = {
   tailwindcss = {},
   clangd = {
-    cmd = {
-      'clangd',
-      '--query-driver=' .. clang_driver,
-      -- Allow clangd to query PlatformIO cross-compilers for built-in include paths.
-      -- Covers xtensa (ESP32/S2), riscv32 (ESP32-C3/C6/H2), and arm (ESP32-S3 variants).
-      -- '--query-driver=' .. vim.env.HOME .. '/.platformio/packages/toolchain-*/bin/*-elf-*',
-      '--clang-tidy',
-      '--header-insertion=iwyu',
-    },
+    cmd = clangd_cmd,
   },
   gopls = {},
   pyright = {},
