@@ -2,7 +2,7 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     catppuccin.url = "github:catppuccin/nix";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
