@@ -1,5 +1,5 @@
 {
-  description = "Python development environment with Nix";
+  description = "Python development environment with Nix and uv";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -18,23 +18,16 @@
         pkgs = import nixpkgs { inherit system; };
 
         python = pkgs.python311;
-        pythonPackages = python.withPackages (
-          ps: with ps; [
-            requests
-            numpy
-          ]
-        );
 
       in
       {
         devShells.default = pkgs.mkShell {
           name = "python-dev-shell";
 
-          # Provide Python and dependencies
+          # uv manages the virtualenv and Python dependencies.
           packages = [
             python
-            pythonPackages
-            pkgs.virtualenv
+            pkgs.uv
           ];
           env.LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
             pkgs.stdenv.cc.cc.lib
@@ -42,14 +35,13 @@
           ];
 
           shellHook = ''
-            if [ ! -d ".venv" ]; then
+            if [ ! -x ".venv/bin/python" ]; then
               echo "Creating virtual environment in ./.venv..."
-              ${python}/bin/python -m venv .venv
-              source .venv/bin/activate
-              pip install --upgrade pip
-              pip install -r requirements.txt
+              uv venv --python ${python}/bin/python .venv
             fi
+
             source .venv/bin/activate
+            uv sync --no-install-project
             echo "Virtual environment activated!"
           '';
         };

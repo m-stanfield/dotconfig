@@ -26,7 +26,9 @@ return {
     local dapui = require 'dapui'
     require('dap-python').setup(vim.env.HOME .. '/.virtualenvs/debugpy/bin/python')
     -- define path based off of environment variable VSCODE_LLDB_PATH, if it exists otherwise use a sensible default
-    local lldb_path = os.getenv 'VSCODE_LLDB_PATH' or '/usr/bin/codelldb'
+    local lldb_path = os.getenv 'VSCODE_LLDB_PATH'
+      or vim.fn.glob(vim.fn.expand('~') .. '/.vscode/extensions/vadimcn.vscode-lldb-*/adapter/codelldb', false, true)[1]
+      or '/usr/bin/codelldb'
 
     -- Basic debugging keymaps, feel free to change to your liking!
     vim.keymap.set('n', '<leader>n', dap.step_over, { desc = 'Debug: Step Over' })
@@ -71,6 +73,7 @@ return {
         args = { '--port', '${port}' },
       },
     }
+    dap.adapters.lldb = dap.adapters.codelldb
 
     -- GDB DAP adapter (requires GDB 14+, available on NixOS unstable).
     -- Used for attaching to OpenOCD's GDB server for ESP32 JTAG debugging.
@@ -95,7 +98,7 @@ return {
             vim.notify(out, vim.log.levels.ERROR)
             return nil
           end
-          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/build/src/', 'file')
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/build/', 'file')
         end,
         terminal = 'console',
       },

@@ -64,19 +64,37 @@ wk.add {
   { '<leader>w_', hidden = true },
 }
 
+local clangd_cmd = {
+  'clangd',
+  -- Allow clangd to query PlatformIO cross-compilers for built-in include paths.
+  -- Covers xtensa (ESP32/S2), riscv32 (ESP32-C3/C6/H2), and arm (ESP32-S3 variants).
+  -- '--query-driver=' .. vim.env.HOME .. '/.platformio/packages/toolchain-*/bin/*-elf-*',
+  '--clang-tidy',
+  '--header-insertion=iwyu',
+}
+
+-- On NixOS the nixpkgs clangd wrapper resolves system include paths itself,
+-- and passing --query-driver disables that logic, so the flag must be left
+-- off there. Elsewhere mason installs a bare clangd, so whitelist the nix
+-- store wrapper compilers used by compile_commands.json in nix-built
+-- projects, plus whatever clang is in PATH.
+if os.getenv('NIX_NEOVIM') ~= '1' then
+  local query_drivers = { '/nix/store/**/bin/*' }
+  local clang_driver = vim.fn.exepath 'clang++'
+  if clang_driver == '' then
+    clang_driver = vim.fn.exepath 'clang'
+  end
+  if clang_driver ~= '' then
+    table.insert(query_drivers, clang_driver)
+  end
+  table.insert(clangd_cmd, '--query-driver=' .. table.concat(query_drivers, ','))
+end
+
 local servers = {
   tailwindcss = {},
   clangd = {
-    cmd = {
-      'clangd',
-      -- Allow clangd to query PlatformIO cross-compilers for built-in include paths.
-      -- Covers xtensa (ESP32/S2), riscv32 (ESP32-C3/C6/H2), and arm (ESP32-S3 variants).
-      -- '--query-driver=' .. vim.env.HOME .. '/.platformio/packages/toolchain-*/bin/*-elf-*',
-      '--clang-tidy',
-      '--header-insertion=iwyu',
-    },
+    cmd = clangd_cmd,
   },
-  nixd = {},
   gopls = {},
   pyright = {},
   -- rust_analyzer = {},
@@ -101,18 +119,36 @@ require('neodev').setup()
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-for server_name, opts in pairs(servers) do
-  -- print server name
-  vim.notify('Setting up LSP server: ' .. server_name)
+-- NixOS provides LSP servers via home-manager packages, so register them
+-- directly. On other systems, mason installs and manages the servers for us.
+if os.getenv('NIX_NEOVIM') == '1' then
+  for server_name, opts in pairs(servers) do
+    -- print server name
+    vim.notify('Setting up LSP server: ' .. server_name)
 
-  opts = vim.tbl_deep_extend('force', {
-    capabilities = capabilities,
-    settings = (servers[server_name] or {}).settings,
-    filetypes = (servers[server_name] or {}).filetypes,
-  }, opts or {})
+    opts = vim.tbl_deep_extend('force', {
+      capabilities = capabilities,
+      settings = (servers[server_name] or {}).settings,
+      filetypes = (servers[server_name] or {}).filetypes,
+    }, opts or {})
 
-  vim.lsp.config(server_name, opts)
-  vim.lsp.enable(server_name)
+    vim.lsp.config(server_name, opts)
+    vim.lsp.enable(server_name)
+  end
+else
+  require('mason-lspconfig').setup {
+    ensure_installed = vim.tbl_keys(servers),
+    automatic_enable = false,
+  }
+
+  for server_name, opts in pairs(servers) do
+    opts = vim.tbl_deep_extend('force', {
+      capabilities = capabilities,
+    }, opts)
+
+    vim.lsp.config(server_name, opts)
+    vim.lsp.enable(server_name)
+  end
 end
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),

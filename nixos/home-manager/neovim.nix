@@ -9,6 +9,9 @@
 {
   home.file.".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/code/dotconfig/config/nvim";
 
+  # Tell nvim LSP config that servers are provided by Nix, not mason
+  home.sessionVariables.NIX_NEOVIM = "1";
+
   home.packages = with pkgs; [
     neovim
 
@@ -17,7 +20,6 @@
     luarocks
 
     # Nix
-    nixd
     nixfmt-rfc-style
 
     # System tools

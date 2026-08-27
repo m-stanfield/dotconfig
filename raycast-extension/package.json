@@ -1,0 +1,31 @@
+{
+  "name": "aerospace-window-switcher",
+  "title": "AeroSpace Window Switcher",
+  "description": "List all AeroSpace windows and focus the selected one",
+  "icon": "icon.png",
+  "author": "anonymous",
+  "platforms": ["macOS"],
+  "categories": ["System"],
+  "license": "MIT",
+  "commands": [
+    {
+      "name": "focus-window",
+      "title": "Focus AeroSpace Window",
+      "description": "Pick a window to focus from a Spotlight-style list",
+      "mode": "view"
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^1.81.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.17",
+    "@types/react": "19.0.10",
+    "react": "19.0.0",
+    "typescript": "^5.2.2"
+  },
+  "scripts": {
+    "build": "ray build -e dist",
+    "dev": "ray develop"
+  }
+}
