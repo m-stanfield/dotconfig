@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     catppuccin.url = "github:catppuccin/nix";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
@@ -12,8 +13,9 @@
     };
   };
 
+
   outputs =
-    { self, nixpkgs, ... }@inputs:
+    { self, nixpkgs, nixpkgs-unstable, ... }@inputs:
     let
       inherit (self) outputs;
     in
@@ -21,7 +23,15 @@
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs; };
+          specialArgs = { 
+            inherit inputs outputs;
+            pkgs-unstable = import nixpkgs-unstable {
+              system = "x86_64-linux";
+              config.allowUnfree = true;
+            };
+
+
+          };
           modules = [
             ./hosts/desktop/configuration.nix
             ./configuration.nix
