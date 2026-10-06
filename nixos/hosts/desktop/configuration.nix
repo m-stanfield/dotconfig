@@ -38,6 +38,10 @@
   boot.loader.grub.device = "/dev/nvme1n1";
   boot.loader.grub.useOSProber = true;
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.extraModprobeConfig = ''
+    options cfg80211 ieee80211_regdom=US
+  '';
   boot.kernelParams = [ "btusb.enable_autosuspend=n" ];
 
   systemd.tmpfiles.rules = [
