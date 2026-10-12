@@ -7,6 +7,13 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
+    users.users.matt.packages = with pkgs; [
+       (wineWow64Packages.full.override {
+         wineRelease = "staging";
+         mingwSupport = true;
+       })
+       winetricks
+     ];
     environment.systemPackages = with pkgs; [
       (lutris.override {
         extraLibraries =

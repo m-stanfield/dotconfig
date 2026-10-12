@@ -48,6 +48,9 @@
     go
     gopls
     delve
+    gofumpt
+    goimports-reviser
+    golines
 
     # Other formatters
     rustywind

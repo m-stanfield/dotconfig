@@ -5,7 +5,6 @@
   environment.pathsToLink = [ "/libexec" ];
 
   environment.systemPackages = with pkgs; [
-  opencode
     mgba
     psmisc
     starship
