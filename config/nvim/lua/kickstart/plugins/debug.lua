@@ -23,6 +23,7 @@ return {
 
   config = function()
     local dap = require 'dap'
+    local breakpoints = require 'dap.breakpoints'
     local dapui = require 'dapui'
     require('dap-python').setup(vim.env.HOME .. '/.virtualenvs/debugpy/bin/python')
     -- define path based off of environment variable VSCODE_LLDB_PATH, if it exists otherwise use a sensible default
@@ -40,9 +41,54 @@ return {
     vim.keymap.set('n', '<leader>cc', dap.continue, { desc = 'Debug: Start/Continue' })
     vim.keymap.set('n', '<leader>cp', dap.pause, { desc = 'Debug: Pause' })
 
-    vim.keymap.set('n', '<leader>cb', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
+    local breakpoints_enabled = true
+    local saved_breakpoints = nil
+
+    local function sync_breakpoints()
+      local current_breakpoints = breakpoints.get()
+      for _, session in pairs(dap.sessions()) do
+        session:set_breakpoints(current_breakpoints)
+      end
+    end
+
+    local function toggle_breakpoints()
+      if breakpoints_enabled then
+        saved_breakpoints = vim.deepcopy(breakpoints.get())
+        dap.clear_breakpoints()
+        breakpoints_enabled = false
+        vim.notify('Debug breakpoints disabled', vim.log.levels.INFO)
+        return
+      end
+
+      for bufnr, buffer_breakpoints in pairs(saved_breakpoints or {}) do
+        for _, breakpoint in ipairs(buffer_breakpoints) do
+          breakpoints.set({
+            condition = breakpoint.condition,
+            hit_condition = breakpoint.hitCondition,
+            log_message = breakpoint.logMessage,
+          }, bufnr, breakpoint.line)
+        end
+      end
+      saved_breakpoints = nil
+      breakpoints_enabled = true
+      sync_breakpoints()
+      vim.notify('Debug breakpoints enabled', vim.log.levels.INFO)
+    end
+
+    vim.keymap.set('n', '<leader>cD', toggle_breakpoints, { desc = 'Debug: Enable/Disable Breakpoints' })
+    vim.keymap.set('n', '<leader>cb', function()
+      if breakpoints_enabled then
+        dap.toggle_breakpoint()
+      else
+        vim.notify('Debug breakpoints are disabled', vim.log.levels.INFO)
+      end
+    end, { desc = 'Debug: Toggle Breakpoint' })
     vim.keymap.set('n', '<leader>cB', function()
-      dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+      if breakpoints_enabled then
+        dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+      else
+        vim.notify('Debug breakpoints are disabled', vim.log.levels.INFO)
+      end
     end, { desc = 'Debug: Set Breakpoint' })
 
     dap.adapters.delve = {

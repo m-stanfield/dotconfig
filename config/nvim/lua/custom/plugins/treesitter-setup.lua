@@ -32,6 +32,7 @@ return {
         'luap',
         'markdown',
         'markdown_inline',
+        'nix',
         'python',
         'query',
         'regex',
@@ -104,17 +105,18 @@ return {
             return -- Parser not available, skip silently
           end
 
-          local parser_installed = pcall(vim.treesitter.get_parser, bufnr, parser_name)
+          -- On Neovim >= 0.12 get_parser returns nil instead of raising, so the
+          -- pcall result alone is not enough to know whether a parser exists.
+          local ok, parser = pcall(vim.treesitter.get_parser, bufnr, parser_name)
 
-          if not parser_installed then
-            -- If not installed, install parser synchronously
-            require('nvim-treesitter').install({ parser_name }):wait(30000)
+          if not ok or not parser then
+            -- Force the install: get_installed() also counts leftover query
+            -- directories, which would otherwise make this a no-op.
+            require('nvim-treesitter').install({ parser_name }, { force = true }):wait(30000)
+            ok, parser = pcall(vim.treesitter.get_parser, bufnr, parser_name)
           end
 
-          -- let's check again
-          parser_installed = pcall(vim.treesitter.get_parser, bufnr, parser_name)
-
-          if parser_installed then
+          if ok and parser then
             -- Start treesitter for this buffer
             vim.treesitter.start(bufnr, parser_name)
           end
